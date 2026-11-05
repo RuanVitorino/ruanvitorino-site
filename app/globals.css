@@ -2006,7 +2006,7 @@ h3,
   margin: -40px 0 0 calc(50% - 50vw);
   padding: 40px max(16px, calc(50vw - 340px)) 180px;
   background: var(--brand);
-  color: #fff;
+  color: var(--ink);
   overflow: hidden;
   isolation: isolate;
 }
@@ -2033,26 +2033,26 @@ h3,
 
 .band .me p,
 .band .hero-sub {
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--ink-2);
 }
 
 .band .me-name {
-  color: #fff !important;
+  color: var(--ink) !important;
 }
 
 .band .langs,
 .band .icon-btn {
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 1px var(--line-strong);
 }
 
 .band .langs button,
 .band .icon-btn {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--muted);
 }
 
 .band .langs button[aria-pressed="true"] {
-  background: #fff;
-  color: var(--brand);
+  background: var(--raised);
+  color: var(--ink);
   box-shadow: none;
 }
 
@@ -2061,19 +2061,19 @@ h3,
   font-weight: 400;
   letter-spacing: -0.025em;
   line-height: 1.02;
-  color: #e6c46e;
+  color: var(--ink);
 }
 
 .band .btn.primary {
   background: var(--gold);
   color: var(--sun-ink);
-  box-shadow: 0 10px 30px -12px rgba(212, 175, 55, 0.7);
+  box-shadow: none;
 }
 
 .band .btn:not(.primary) {
-  background: transparent;
-  color: #fff;
-  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.55);
+  background: var(--raised);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 
 .btn {
@@ -2420,7 +2420,6 @@ h3,
 .page section.talk > h2:not(.label) {
   font-size: clamp(52px, 11vw, 104px);
   line-height: 0.94;
-  font-variation-settings: "wdth" 90, "opsz" 96;
 }
 
 .talk-mail {
@@ -2538,22 +2537,21 @@ h3,
 }
 
 .band .back {
-  color: #f3e9dc;
+  color: var(--ink-2);
 }
 
 .band .title {
-  color: #fff;
+  color: var(--ink);
   font-size: clamp(44px, 8vw, 80px);
-  font-variation-settings: "wdth" 90, "opsz" 96;
 }
 
 .band .lead {
-  color: rgba(243, 233, 220, 0.8);
+  color: var(--ink-2);
   max-width: 34em;
 }
 
 .band .status {
-  color: #f3e9dc;
+  color: var(--ink-2);
 }
 
 .band.slim + .facts {
@@ -2619,26 +2617,27 @@ h3,
   padding: 26px 26px 26px;
   border-radius: 20px;
   text-decoration: none;
-  color: #f3e9dc;
-  background: var(--brand);
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
   overflow: hidden;
 }
 
 .next-k {
   font-size: 13px;
-  color: #e8c86e;
+  color: var(--muted);
 }
 
 .nextcard strong {
   font-family: var(--font-display), sans-serif;
   font-size: clamp(30px, 6vw, 48px);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 1;
 }
 
 .next-v {
-  color: rgba(243, 233, 220, 0.75);
+  color: var(--ink-2);
   font-size: 15px;
   max-width: 34em;
 }
@@ -2646,7 +2645,7 @@ h3,
 .next-arrow {
   justify-self: end;
   font-size: 32px;
-  color: #e8c86e;
+  color: var(--accent);
   transition: translate 400ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -2692,7 +2691,7 @@ h3,
 
 @keyframes flash {
   from {
-    background: rgba(212, 175, 55, 0.35);
+    background: var(--accent-soft);
   }
 }
 
@@ -2787,7 +2786,7 @@ h3,
 
 @media (hover: hover) {
   .shot .frame:hover {
-    box-shadow: 0 0 0 1px #d4af37, 0 34px 70px -36px var(--shadow);
+    box-shadow: 0 0 0 1px var(--line-strong), 0 24px 48px -32px var(--shadow);
   }
 }
 
