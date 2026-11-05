@@ -1,3 +1,14 @@
 node_modules
 .next
 .vercel
+.env*
+unslop
+.claude
+.DS_Store
+tsconfig.tsbuildinfo
+
+# Notes and mockups for local design tools; they stay on disk, not in the repo
+DESIGN.md
+PRODUCT.md
+.impeccable
+mockups
