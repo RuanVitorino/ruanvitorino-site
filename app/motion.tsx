@@ -6,169 +6,29 @@ import { ai } from "./ai-copy";
 
 const still = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// One place for page motion: reveal on scroll, collage parallax, count-ups and card tilt.
+// Page motion, kept to one job: sections fade and rise once as they enter the viewport.
 export function Motion() {
   useEffect(() => {
     const reduce = still();
-    const root = document.documentElement;
-    root.classList.add("motion");
-
-    // 1. Reveal: every [data-reveal] rises in when it enters the viewport; children stagger.
+    document.documentElement.classList.add("motion");
     const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
           if (!e.isIntersecting) continue;
-          const el = e.target as HTMLElement;
-          el.classList.add("in");
-          io.unobserve(el);
-          el.querySelectorAll<HTMLElement>("[data-count]").forEach(countUp);
+          (e.target as HTMLElement).classList.add("in");
+          io.unobserve(e.target);
         }
       },
       // Threshold 0: tall sections on phones must start as soon as their top edge shows.
       { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
     targets.forEach((t) => (reduce ? t.classList.add("in") : io.observe(t)));
-
-    function countUp(el: HTMLElement) {
-      const to = Number(el.dataset.count);
-      if (reduce || !to) return;
-      const start = performance.now();
-      const tick = (now: number) => {
-        const k = Math.min(1, (now - start) / 1100);
-        el.textContent = String(Math.round(to * (1 - Math.pow(1 - k, 3))));
-        if (k < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    }
-
-    // 2. Collage parallax: side screens drift and straighten as you scroll past.
-    const items = Array.from(document.querySelectorAll<HTMLElement>(".collage-item"));
-    let frame = 0;
-    const onScroll = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
-        frame = 0;
-        const y = window.scrollY;
-        items.forEach((it, i) => {
-          const dir = i === 0 ? -1 : i === 2 ? 1 : 0;
-          const p = Math.min(1, y / 600);
-          it.style.setProperty("--py", `${(i === 1 ? -0.06 : 0.1) * Math.min(y, 600)}px`);
-          it.style.setProperty("--pr", `${dir * 2 * (1 - p)}deg`);
-          it.style.setProperty("--px", `${dir * 24 * p}px`);
-        });
-      });
-    };
-    if (!reduce && items.length) {
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-    }
-
-    // 3. Tilt + spotlight on cards that follow the pointer (hover devices only).
-    const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-tilt]"));
-    const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const move = (e: PointerEvent) => {
-      const el = e.currentTarget as HTMLElement;
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      const y = (e.clientY - r.top) / r.height;
-      el.style.setProperty("--mx", `${x * 100}%`);
-      el.style.setProperty("--my", `${y * 100}%`);
-      el.style.setProperty("--rx", `${(0.5 - y) * 6}deg`);
-      el.style.setProperty("--ry", `${(x - 0.5) * 8}deg`);
-    };
-    const leave = (e: PointerEvent) => {
-      const el = e.currentTarget as HTMLElement;
-      el.style.setProperty("--rx", "0deg");
-      el.style.setProperty("--ry", "0deg");
-    };
-    if (!reduce && fine) {
-      cards.forEach((c) => {
-        c.addEventListener("pointermove", move);
-        c.addEventListener("pointerleave", leave);
-      });
-    }
-
-    // 3b. Screenshots drift inside their frames as the page scrolls.
-    const pics = Array.from(document.querySelectorAll<HTMLElement>(".shot .frame img"));
-    const onPics = () => {
-      for (const img of pics) {
-        const r = img.getBoundingClientRect();
-        const c = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
-        img.style.setProperty("--iy", `${(c * -18).toFixed(1)}px`);
-      }
-    };
-    if (!reduce && pics.length) {
-      onPics();
-      window.addEventListener("scroll", onPics, { passive: true });
-    }
-
-    // 4. Scroll progress bar.
-    const bar = document.querySelector<HTMLElement>(".progress");
-    const onProgress = () => {
-      const max = document.documentElement.scrollHeight - innerHeight;
-      bar?.style.setProperty("--p", String(max > 0 ? scrollY / max : 0));
-    };
-    onProgress();
-    window.addEventListener("scroll", onProgress, { passive: true });
-
-    // 5. Light that follows the pointer inside the band, and the collage turning toward it.
-    const band = document.querySelector<HTMLElement>(".band");
-    const collage = document.querySelector<HTMLElement>(".collage");
-    const onBand = (e: PointerEvent) => {
-      if (!band) return;
-      const r = band.getBoundingClientRect();
-      band.style.setProperty("--gx", `${e.clientX - r.left}px`);
-      band.style.setProperty("--gy", `${e.clientY - r.top}px`);
-      if (collage) {
-        const x = e.clientX / innerWidth - 0.5;
-        const y = e.clientY / innerHeight - 0.5;
-        collage.style.setProperty("--cx", `${(-y * 6).toFixed(2)}deg`);
-        collage.style.setProperty("--cy", `${(x * 8).toFixed(2)}deg`);
-      }
-    };
-    if (!reduce && fine) window.addEventListener("pointermove", onBand, { passive: true });
-
-    // 6. Magnetic buttons: they lean toward the pointer.
-    const mags = Array.from(document.querySelectorAll<HTMLElement>("[data-magnetic]"));
-    const magMove = (e: PointerEvent) => {
-      const el = e.currentTarget as HTMLElement;
-      const r = el.getBoundingClientRect();
-      const dx = e.clientX - (r.left + r.width / 2);
-      const dy = e.clientY - (r.top + r.height / 2);
-      el.style.translate = `${dx * 0.18}px ${dy * 0.25}px`;
-    };
-    const magLeave = (e: PointerEvent) => {
-      (e.currentTarget as HTMLElement).style.translate = "0 0";
-    };
-    if (!reduce && fine) {
-      mags.forEach((m) => {
-        m.addEventListener("pointermove", magMove);
-        m.addEventListener("pointerleave", magLeave);
-      });
-    }
-
-    return () => {
-      io.disconnect();
-      window.removeEventListener("scroll", onProgress);
-      window.removeEventListener("scroll", onPics);
-      window.removeEventListener("pointermove", onBand);
-      mags.forEach((m) => {
-        m.removeEventListener("pointermove", magMove);
-        m.removeEventListener("pointerleave", magLeave);
-      });
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(frame);
-      cards.forEach((c) => {
-        c.removeEventListener("pointermove", move);
-        c.removeEventListener("pointerleave", leave);
-      });
-    };
+    return () => io.disconnect();
   });
-  return <div className="progress" aria-hidden="true" />;
+  return null;
 }
 
-// Endless strip of the stack, duplicated so the loop has no seam.
 export function Marquee({ items, reverse }: { items: string[]; reverse?: boolean }) {
   const row = (hidden: boolean) => (
     <ul aria-hidden={hidden || undefined}>

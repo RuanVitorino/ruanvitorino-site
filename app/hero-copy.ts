@@ -12,7 +12,7 @@ export type Hero = {
 
 export const hero: Record<Lang, Hero> = {
   en: {
-    headline: "I build AI products that businesses use every day.",
+    headline: "I build AI products that businesses use every day",
     sub: "Full-stack developer and co-founder of Temp.IA. For more than four years I've also built the import and export module of TOTVS Protheus at aFill.",
     proofs: [
       { k: "In production", v: "SmileIA serves dental clinics" },
@@ -21,11 +21,11 @@ export const hero: Record<Lang, Hero> = {
     ],
     seeWork: "See the projects",
     cv: "Download CV",
-    talk: "Let's talk.",
+    talk: "Let's talk",
     talkSub: "Email is the fastest way to reach me. I answer within a day.",
   },
   es: {
-    headline: "Construyo productos de IA que las empresas usan cada día.",
+    headline: "Construyo productos de IA que las empresas usan cada día",
     sub: "Desarrollador full-stack y cofundador de Temp.IA. Desde hace más de cuatro años también desarrollo el módulo de importación y exportación de TOTVS Protheus en aFill.",
     proofs: [
       { k: "En producción", v: "SmileIA atiende a clínicas dentales" },
@@ -34,11 +34,11 @@ export const hero: Record<Lang, Hero> = {
     ],
     seeWork: "Ver los proyectos",
     cv: "Descargar CV",
-    talk: "Hablemos.",
+    talk: "Hablemos",
     talkSub: "El email es la forma más rápida de hablar conmigo. Respondo en menos de un día.",
   },
   pt: {
-    headline: "Construo produtos de IA que empresas usam todo dia.",
+    headline: "Construo produtos de IA que empresas usam todo dia",
     sub: "Desenvolvedor full-stack e cofundador da Temp.IA. Há mais de quatro anos também desenvolvo o módulo de importação e exportação do TOTVS Protheus na aFill.",
     proofs: [
       { k: "Em produção", v: "SmileIA atende clínicas odontológicas" },
@@ -47,7 +47,7 @@ export const hero: Record<Lang, Hero> = {
     ],
     seeWork: "Ver os projetos",
     cv: "Baixar CV",
-    talk: "Vamos conversar.",
+    talk: "Vamos conversar",
     talkSub: "O e-mail é o jeito mais rápido de falar comigo. Respondo em até um dia.",
   },
 };

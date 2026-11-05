@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo_Black, Schibsted_Grotesk } from "next/font/google";
+import { Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import "./home.css";
 
-const sans = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-sans" });
-// Display face for headlines: condensed widths and optical sizes give the titles their own voice.
-const display = Archivo_Black({ subsets: ["latin"], weight: "400", variable: "--font-display" });
+// One family for the interface and the headlines, a mono for dates and meta.
+const sans = Instrument_Sans({ subsets: ["latin"], variable: "--font-sans" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 const description =
   "Full-stack developer in Santa Catarina, Brazil. Co-founder of Temp.IA, where I build AI products that talk to customers on WhatsApp and Instagram.";
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#24160f" },
-    { media: "(prefers-color-scheme: dark)", color: "#24160f" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f4ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#161513" },
   ],
 };
 
@@ -37,7 +38,7 @@ const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!==
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script dangerouslySetInnerHTML={{ __html: langScript }} />

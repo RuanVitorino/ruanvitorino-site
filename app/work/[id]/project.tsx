@@ -7,7 +7,7 @@ import { Controls, usePrefs } from "../../prefs";
 import SmileDemo from "./demo";
 import { Arch, BeforeAfter, Frame, HoverList, Reveal, Status, useTransitionDone } from "../../bits";
 import { AppMultiDemo, TaxCalc } from "../../demos";
-import { Cursor, Motion } from "../../motion";
+import { Motion } from "../../motion";
 
 const nextLabel = { en: "Next project", es: "Siguiente proyecto", pt: "Próximo projeto" } as const;
 
@@ -28,7 +28,6 @@ export default function Project({ id }: { id: string }) {
   return (
     <main className="page" key={lang}>
       <Motion />
-      <Cursor />
       <div className="band slim">
         <header className="top">
           <Link className="back" href="/">

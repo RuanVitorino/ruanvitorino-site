@@ -1,0 +1,1093 @@
+/* Home, redesigned with unslop (Damir Sokolovsky, @heydamir, CC BY 4.0).
+   Quiet warm chrome, one amber accent, and the WhatsApp thread in the hero as the one rich moment.
+   The double check mark is the signature: it marks what is live or delivered. */
+
+.hm {
+  --mono: var(--font-mono), ui-monospace, monospace;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.hm-wrap {
+  width: 100%;
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.hm-i {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hm a {
+  text-decoration: none;
+}
+
+.hm h1,
+.hm h2,
+.hm h3 {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 500;
+}
+
+/* Header */
+
+.hm-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 32px;
+}
+
+.hm-me {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hm-me img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.hm-me p {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--ink-2);
+}
+
+.hm-me .hm-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.hm .controls {
+  display: flex;
+  gap: 8px;
+}
+
+.hm .langs {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.hm .langs button,
+.hm .icon-btn {
+  height: 28px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--muted);
+  font: 500 12px/1 var(--mono);
+  cursor: pointer;
+  box-shadow: none;
+  transition:
+    color 150ms var(--ease),
+    background-color 150ms var(--ease);
+}
+
+.hm .langs button:hover,
+.hm .icon-btn:hover {
+  color: var(--ink);
+}
+
+.hm .langs button[aria-pressed="true"] {
+  background: var(--raised);
+  color: var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hm .icon-btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.hm .icon-btn svg {
+  stroke-width: 1.5;
+}
+
+/* Hero */
+
+.hm-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 64px;
+  align-items: center;
+  min-height: min(calc(100vh - 72px), 720px);
+  padding: 48px 0 64px;
+}
+
+.hm-hero h1 {
+  max-width: 12ch;
+  font-size: 64px;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.hm-lede {
+  max-width: 36rem;
+  margin-top: 24px;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--ink-2);
+}
+
+.hm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.hm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1;
+  transition:
+    background-color 150ms var(--ease),
+    color 150ms var(--ease),
+    transform 120ms var(--ease);
+}
+
+.hm-btn:active {
+  transform: scale(0.98);
+}
+
+.hm-primary {
+  background: var(--accent-fill);
+  color: var(--accent-ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.hm-primary:hover {
+  background: #e8b24c;
+}
+
+.hm-secondary {
+  background: var(--raised);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.hm-secondary:hover {
+  background: color-mix(in srgb, var(--raised) 85%, var(--ink));
+}
+
+.hm-secondary .hm-i {
+  color: var(--muted);
+}
+
+/* The WhatsApp thread: the page's one rich moment. It stays dark in both themes. */
+
+.hchat {
+  margin: 0;
+}
+
+.hchat-card {
+  min-height: 452px;
+  background: #0f0e0c;
+  border: 1px solid rgba(239, 233, 222, 0.14);
+  border-radius: 20px;
+  overflow: hidden;
+  color: #efe9de;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+}
+
+.hchat-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #1c1a18;
+  border-bottom: 1px solid rgba(239, 233, 222, 0.08);
+}
+
+.hchat-av {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #2f5d4f;
+  color: #e6f1ec;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.hchat-top b {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.hchat-top em {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #aaa398;
+}
+
+.hchat-top em::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4cc38a;
+}
+
+.hchat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 16px;
+  list-style: none;
+}
+
+.hchat-body > li {
+  max-width: 78%;
+  padding: 8px 12px 6px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 20px;
+  animation: hm-in 260ms var(--ease) both;
+}
+
+.hchat-ai {
+  align-self: flex-start;
+  background: #262421;
+  border-top-left-radius: 4px;
+}
+
+.hchat-p {
+  align-self: flex-end;
+  background: #1d4a3c;
+  color: #e9f0eb;
+  border-top-right-radius: 4px;
+}
+
+.hchat-meta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  font: 400 11px/14px var(--mono);
+  color: rgba(239, 233, 222, 0.5);
+}
+
+.hchat svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hchat-meta svg {
+  color: #53bdeb;
+}
+
+.hchat-typing {
+  display: flex;
+  gap: 4px;
+  padding: 12px 14px !important;
+}
+
+.hchat-typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8a847a;
+  animation: hm-typing 1s var(--ease) infinite;
+}
+
+.hchat-typing i:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.hchat-typing i:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+.hchat-body > .hchat-ok {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 78%;
+  margin-top: 4px;
+  padding: 12px;
+  background: #1c1a18;
+  border: 1px solid rgba(239, 233, 222, 0.08);
+}
+
+.hchat-date {
+  flex: none;
+  width: 44px;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid rgba(239, 233, 222, 0.08);
+  border-radius: 8px;
+}
+
+.hchat-date small {
+  display: block;
+  background: #e0a63a;
+  color: #1a1408;
+  font: 500 10px/16px var(--mono);
+}
+
+.hchat-date strong {
+  display: block;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+  font-variant-numeric: tabular-nums;
+}
+
+.hchat-ok b {
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.hchat-ok em {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #aaa398;
+}
+
+.hchat-ok em svg {
+  color: #4cc38a;
+}
+
+.hchat figcaption {
+  margin-top: 12px;
+  font: 400 12px/16px var(--mono);
+  color: var(--muted);
+}
+
+@keyframes hm-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes hm-typing {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* Facts */
+
+.hm-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.hm-facts li {
+  padding: 24px 24px 24px 0;
+}
+
+.hm-facts li + li {
+  padding-left: 24px;
+  border-left: 1px solid var(--line);
+}
+
+.hm-facts b {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.hm-facts .hm-i {
+  color: var(--accent);
+}
+
+.hm-facts span {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-2);
+}
+
+/* Sections: title in a left column, content on the right */
+
+.hm-block {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 48px;
+  padding-top: 96px;
+  scroll-margin-top: 32px;
+}
+
+.hm-block h2 {
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.hm-block-sub {
+  max-width: 28ch;
+  margin-top: 12px;
+  color: var(--ink-2);
+}
+
+/* Projects */
+
+.hm-work {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.hm-proj {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  transition: border-color 150ms var(--ease);
+}
+
+.hm-proj:hover {
+  border-color: var(--line-strong);
+}
+
+.hm-proj.wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
+}
+
+.hm-shot {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--raised);
+  border-bottom: 1px solid var(--line);
+}
+
+.hm-proj.wide .hm-shot {
+  order: 2;
+  flex: 0 0 52%;
+  aspect-ratio: auto;
+  border-bottom: 0;
+  border-left: 1px solid var(--line);
+}
+
+.hm-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.hm-proj-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+}
+
+.hm-proj h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.hm-proj p {
+  color: var(--ink-2);
+}
+
+.hm-proj.plain p {
+  max-width: 64ch;
+}
+
+.hm-proj .hm-role {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--muted);
+}
+
+.hm-role b {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.hm-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 4px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.hm-more .hm-i {
+  color: var(--muted);
+  transition:
+    transform 150ms var(--ease),
+    color 150ms var(--ease);
+}
+
+.hm-proj:hover .hm-more .hm-i {
+  transform: translateX(2px);
+  color: var(--accent);
+}
+
+.hm-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hm-tags span {
+  padding: 4px 8px;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: 400 12px/16px var(--mono);
+  color: var(--ink-2);
+}
+
+/* Live status from /api/status, drawn as the signature check mark */
+.hm .status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 400 12px/16px var(--mono);
+  color: var(--muted);
+}
+
+.hm .status .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  background: currentColor;
+  box-shadow: none;
+  animation: none;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 7 17l-5-5'/%3E%3Cpath d='m22 10-7.5 7.5L13 16'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.hm .status.online {
+  color: var(--live);
+}
+
+/* Experience */
+
+.hm-timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hm-timeline li {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.hm-timeline li:first-child {
+  padding-top: 0;
+}
+
+.hm-timeline i {
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--muted);
+  border-radius: 50%;
+}
+
+.hm-timeline i.now {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.hm-timeline b {
+  font-weight: 500;
+}
+
+.hm-timeline span {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-2);
+}
+
+.hm-timeline time {
+  font: 400 12px/16px var(--mono);
+  color: var(--muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.hm-note {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted);
+}
+
+/* AI */
+
+.hm-ways {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hm-ways li {
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.hm-ways b {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.hm-ways .hm-i {
+  color: var(--muted);
+}
+
+.hm-ways .mine .hm-i {
+  color: var(--accent);
+}
+
+.hm-ways p {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-2);
+}
+
+/* The agent component keeps its logic; only its surface changes here. */
+.hm-agent {
+  margin-top: 16px;
+}
+
+.hm-agent .agent {
+  margin: 0;
+  padding: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: none;
+  animation: none;
+}
+
+.hm-agent .agent-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hm-agent .agent-head h2 {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+
+.hm-agent .agent-head p {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-2);
+}
+
+.hm-agent .live {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--live);
+  box-shadow: none;
+  animation: none;
+}
+
+.hm-agent .agent-log {
+  padding: 20px 24px 0;
+}
+
+.hm-agent .hint {
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--muted);
+}
+
+.hm-agent .q {
+  background: var(--raised);
+  color: var(--ink);
+  border-radius: 10px;
+}
+
+.hm-agent .src li {
+  background: var(--raised);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.hm-agent .chips {
+  margin-top: 12px;
+  padding: 0;
+}
+
+.hm-agent .chips button {
+  padding: 6px 12px;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: none;
+  color: var(--ink);
+  font: 400 14px/20px var(--font-sans), sans-serif;
+  animation: none;
+  transition: border-color 150ms var(--ease);
+}
+
+.hm-agent .chips button:hover {
+  border-color: var(--line-strong);
+  transform: none;
+}
+
+.hm-agent .chips-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.hm-agent .ask {
+  gap: 8px;
+  padding: 20px 24px 0;
+}
+
+.hm-agent .ask input {
+  height: 44px;
+  padding: 0 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 15px;
+}
+
+.hm-agent .ask input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.hm-agent .ask button {
+  height: 44px;
+  padding: 0 20px;
+  background: var(--accent-fill);
+  color: var(--accent-ink);
+  border-radius: 10px;
+  font-weight: 500;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.hm-agent .agent-foot {
+  padding: 12px 24px 24px;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--muted);
+}
+
+/* Other projects */
+
+.hm-others {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.hm-others li {
+  border-bottom: 1px solid var(--line);
+}
+
+.hm-others a {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr) 16px;
+  gap: 24px;
+  align-items: baseline;
+  padding: 20px 0;
+}
+
+.hm-others b {
+  font-weight: 500;
+}
+
+.hm-others p {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-2);
+}
+
+.hm-others .hm-i {
+  align-self: center;
+  color: var(--muted);
+  transition: color 150ms var(--ease);
+}
+
+.hm-others a:hover .hm-i {
+  color: var(--accent);
+}
+
+/* Contact */
+
+.hm-contact {
+  margin-top: 128px;
+  padding: 96px 0;
+  background: var(--brand-deep);
+  border-top: 1px solid var(--line);
+}
+
+.hm-contact .hm-wrap {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 48px;
+}
+
+.hm-contact h2 {
+  font-size: 48px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.hm-contact p {
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--ink-2);
+}
+
+.hm-mail {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 44px;
+  letter-spacing: -0.02em;
+  border-bottom: 2px solid var(--accent);
+  transition: color 150ms var(--ease);
+}
+
+.hm-mail:hover {
+  color: var(--accent);
+}
+
+.hm-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.hm-links .hm-btn {
+  height: 36px;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.hm-footer {
+  padding: 24px 0 32px;
+  background: var(--brand-deep);
+  border-top: 1px solid var(--line);
+  font: 400 12px/16px var(--mono);
+  color: var(--muted);
+}
+
+/* One entrance on load */
+
+@media (prefers-reduced-motion: no-preference) {
+  .hm-rise,
+  .hchat {
+    animation: hm-rise 420ms var(--ease) both;
+  }
+  .hm-lede {
+    animation-delay: 50ms;
+  }
+  .hm-actions {
+    animation-delay: 100ms;
+  }
+  .hchat {
+    animation-delay: 150ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hchat-body > li,
+  .hchat-typing i {
+    animation: none;
+  }
+}
+
+@keyframes hm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Small screens */
+
+@media (max-width: 960px) {
+  .hm-wrap {
+    padding: 0 20px;
+  }
+  .hm-top {
+    padding-top: 20px;
+  }
+  .hm-me p:not(.hm-name) {
+    display: none;
+  }
+  .hm-hero {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    min-height: 0;
+    padding: 48px 0 64px;
+  }
+  .hm-hero h1 {
+    font-size: 40px;
+  }
+  .hm-lede {
+    font-size: 17px;
+    line-height: 26px;
+  }
+  .hchat {
+    max-width: 420px;
+  }
+  .hm-facts {
+    grid-template-columns: 1fr;
+  }
+  .hm-facts li,
+  .hm-facts li + li {
+    padding: 16px 0;
+    border-left: 0;
+  }
+  .hm-facts li + li {
+    border-top: 1px solid var(--line);
+  }
+  .hm-block,
+  .hm-contact .hm-wrap {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .hm-block {
+    padding-top: 64px;
+  }
+  .hm-work,
+  .hm-ways {
+    grid-template-columns: 1fr;
+  }
+  .hm-proj.wide {
+    flex-direction: column;
+  }
+  .hm-proj.wide .hm-shot {
+    order: 0;
+    flex: none;
+    aspect-ratio: 16 / 10;
+    border-left: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .hm-timeline li {
+    grid-template-columns: 16px 1fr;
+  }
+  .hm-timeline time {
+    grid-column: 2;
+  }
+  .hm-others a {
+    grid-template-columns: 1fr 16px;
+    gap: 4px 16px;
+  }
+  .hm-others p {
+    grid-column: 1;
+  }
+  .hm-others .hm-i {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .hm-contact {
+    margin-top: 96px;
+    padding: 64px 0;
+  }
+  .hm-contact h2 {
+    font-size: 36px;
+  }
+  .hm-mail {
+    font-size: 22px;
+    line-height: 32px;
+  }
+}

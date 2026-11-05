@@ -5,7 +5,7 @@ import { more } from "../more-copy";
 import { person } from "../person";
 import { Controls, usePrefs } from "../prefs";
 import { Reveal } from "../bits";
-import { Cursor, Motion } from "../motion";
+import { Motion } from "../motion";
 
 export default function Now() {
   const prefs = usePrefs();
@@ -15,7 +15,6 @@ export default function Now() {
   return (
     <main className="page" key={lang}>
       <Motion />
-      <Cursor />
       <div className="band slim">
       <header className="top">
         <Link className="back" href="/">
