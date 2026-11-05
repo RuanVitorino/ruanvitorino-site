@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Vitorino;Ruan;;;
+FN:Ruan Vitorino
+TITLE:Full-stack developer
+ORG:Temp.IA
+EMAIL;TYPE=INTERNET:ruanrvitorino@gmail.com
+URL:https://ruanvitorino.dev
+URL:https://www.linkedin.com/in/ruan-vitorino/
+ADR;TYPE=WORK:;;;Penha;SC;;Brazil
+END:VCARD

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opções do topo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --brand:#24160f; --paper:#150d08; --ink:#f3e9dc; --muted:rgba(255,255,255,.72); --gold:linear-gradient(135deg,#f3dc9a 0%,#d4af37 45%,#a8842a 100%); --g:#e6c46e; }
+  * { box-sizing:border-box; margin:0; padding:0 }
+  body { background:#0b0704; color:var(--ink); font-family:"Schibsted Grotesk",sans-serif; padding:24px 16px 80px }
+  .tag { max-width:1180px; margin:40px auto 12px; font-weight:700; font-size:15px; color:#d9b45a }
+  .tag span { color:var(--muted); font-weight:400 }
+  .frame { max-width:1180px; margin:0 auto; border-radius:18px; overflow:hidden; box-shadow:inset 0 0 0 1px rgba(212,175,55,.25) }
+  .band { position:relative; background:var(--brand); padding:28px clamp(16px,4vw,56px) 56px; overflow:hidden; isolation:isolate }
+  .band::before { content:""; position:absolute; inset:-30%; z-index:-1; filter:blur(30px);
+    background:radial-gradient(30% 35% at 18% 28%,rgba(212,175,55,.22),transparent 70%),radial-gradient(38% 42% at 82% 18%,rgba(110,72,44,.95),transparent 70%) }
+  .top { display:flex; justify-content:space-between; align-items:center; gap:12px }
+  .me { display:flex; gap:12px; align-items:center }
+  .me i { width:40px; height:40px; border-radius:50%; background:#6b4a33 }
+  .me b { display:block } .me small { color:var(--muted) }
+  .ctl { display:flex; gap:4px; padding:4px; border-radius:10px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.2); font-size:12px }
+  .ctl span { padding:5px 8px; border-radius:6px } .ctl .on { background:#fff; color:#24160f }
+  .btn { display:inline-flex; align-items:center; min-height:44px; padding:0 18px; border-radius:10px; font-weight:600; font-size:15px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.5) }
+  .btn.p { background:var(--gold); color:#24160f; box-shadow:none }
+  .row { display:flex; gap:10px; flex-wrap:wrap }
+  .disp { font-family:"Archivo Black",sans-serif; letter-spacing:-.025em }
+
+  /* B: giant name */
+  .giant { font-size:clamp(64px,15.5vw,190px); line-height:.86; margin-top:36px; background:var(--gold); -webkit-background-clip:text; background-clip:text; color:transparent }
+  .giant-rule { height:1px; background:rgba(212,175,55,.4); margin:28px 0 }
+  .giant-foot { display:grid; gap:20px; align-items:end }
+  @media (min-width:800px){ .giant-foot { grid-template-columns:1fr auto } }
+  .giant-foot p { font-size:clamp(20px,2.4vw,28px); line-height:1.25; max-width:24em }
+  .giant-foot p em { font-style:normal; color:var(--g) }
+  .strip { display:flex; gap:14px; margin-top:36px; overflow:hidden }
+  .strip div { flex:1 0 220px; aspect-ratio:16/10; border-radius:10px; background:linear-gradient(160deg,#f3e9dc,#d8cbb9); position:relative }
+  .strip div:nth-child(2){ background:linear-gradient(160deg,#e9ecff,#fff) } .strip div:nth-child(3){ background:#1b1410; box-shadow:inset 0 0 0 1px #3a2717 }
+  .strip div::after { content:attr(data-n); position:absolute; left:10px; bottom:8px; font-size:12px; font-weight:600; color:#24160f } .strip div:nth-child(3)::after{ color:#d9b45a }
+
+  /* C: command panel */
+  .panel { margin-top:32px; display:grid; gap:14px }
+  @media (min-width:900px){ .panel { grid-template-columns:1.25fr 1fr; grid-template-rows:auto auto } .p-head { grid-row:span 2 } }
+  .cell { border-radius:14px; background:rgba(15,9,5,.6); box-shadow:inset 0 0 0 1px rgba(212,175,55,.25); padding:22px }
+  .cell h3 { font-size:12px; font-weight:600; color:#d9b45a; margin-bottom:14px; letter-spacing:.02em }
+  .p-head h1 { font-size:clamp(36px,4.6vw,60px); line-height:1.02; color:var(--g) }
+  .p-head p { margin:18px 0 24px; color:var(--muted); line-height:1.55; max-width:32em }
+  .live li { list-style:none; display:flex; justify-content:space-between; padding:10px 0; border-top:1px solid rgba(255,255,255,.08); font-size:15px }
+  .live li:first-child { border-top:0 }
+  .live small { color:var(--muted) }
+  .dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:#6fd08c; margin-right:8px; animation:pulse 1.6s infinite }
+  @keyframes pulse { 50%{ opacity:.35 } }
+  .term { font-family:ui-monospace,Menlo,monospace; font-size:14px; line-height:1.7 }
+  .term .q { color:var(--g) } .term .a { color:var(--muted) }
+  .caret { display:inline-block; width:8px; height:16px; background:#d9b45a; vertical-align:-3px; animation:blink 1s steps(1) infinite }
+  @keyframes blink { 50%{ opacity:0 } }
+  .note { max-width:1180px; margin:10px auto 0; font-size:13px; color:var(--muted) }
+</style>
+</head>
+<body>
+
+<p class="tag">Opção 2 · Nome gigante <span>— o nome vira um pôster dourado; frase e botões embaixo</span></p>
+<div class="frame"><div class="band">
+  <div class="top"><div class="me"><i></i><div><b>Desenvolvedor full-stack</b><small>Santa Catarina, Brasil</small></div></div><div class="ctl"><span>EN</span><span>ES</span><span class="on">PT</span></div></div>
+  <h1 class="giant disp">RUAN<br>VITORINO</h1>
+  <div class="giant-rule"></div>
+  <div class="giant-foot">
+    <p>Construo produtos de IA <em>que empresas usam todo dia.</em></p>
+    <div class="row"><a class="btn p">Ver os projetos</a><a class="btn">Baixar CV</a></div>
+  </div>
+  <div class="strip"><div data-n="Protocolos"></div><div data-n="SmileIA"></div><div data-n="AppMulti"></div></div>
+</div></div>
+<p class="note">As três telas dos produtos deslizam devagar embaixo do nome.</p>
+
+<p class="tag">Opção 3 · Painel de comando <span>— frase, produtos no ar e o agente de IA numa grade</span></p>
+<div class="frame"><div class="band">
+  <div class="top"><div class="me"><i></i><div><b>Ruan Vitorino</b><small>Desenvolvedor full-stack · Santa Catarina, Brasil</small></div></div><div class="ctl"><span>EN</span><span>ES</span><span class="on">PT</span></div></div>
+  <div class="panel">
+    <div class="cell p-head">
+      <h1 class="disp">Construo produtos de IA que empresas usam todo dia.</h1>
+      <p>Desenvolvedor full-stack e cofundador da Temp.IA. Há mais de quatro anos também desenvolvo o módulo de importação e exportação do TOTVS Protheus na aFill.</p>
+      <div class="row"><a class="btn p">Ver os projetos</a><a class="btn">Baixar CV</a></div>
+    </div>
+    <div class="cell">
+      <h3>Produtos</h3>
+      <ul class="live">
+        <li><span><i class="dot"></i>SmileIA</span><small>no ar · clínicas</small></li>
+        <li><span><i class="dot"></i>AppMulti</span><small>aprovado pela Meta</small></li>
+        <li><span><i class="dot"></i>Protocolos</span><small>protótipo</small></li>
+      </ul>
+    </div>
+    <div class="cell term">
+      <h3>Pergunte ao agente</h3>
+      <div class="q">&gt; Ele já trabalhou com IA em produção?</div>
+      <div class="a">Sim. O SmileIA atende pacientes no WhatsApp de clínicas odontológicas…</div>
+      <div class="q">&gt; <span class="caret"></span></div>
+    </div>
+  </div>
+</div></div>
+<p class="note">O quadro "Pergunte ao agente" seria o agente de verdade que já existe no site, só que no topo.</p>
+
+</body>
+</html>
