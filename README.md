@@ -10,6 +10,14 @@ Next.js 15 (App Router), React 19 and TypeScript, deployed on Vercel. No UI libr
 - **Project pages** generated statically from the same data (`app/work/[id]`), each with an interactive "how it works" diagram and a simulated demo with fictional data.
 - **A live status badge** for products that run in production (`app/api/status`), cached at the edge for a minute so visitors never hit the product directly.
 - **"Ask my agent"**: a chat that answers recruiters' questions about my experience, described below.
+- **Readable by AI agents.** Every page URL also answers in Markdown when requested with `Accept: text/markdown` (`middleware.ts`, `app/negotiate.ts`, `app/markdown.ts`). Markdown responses carry `Vary: Accept`, and unknown paths get a Markdown 404. The homepage carries schema.org `Person` JSON-LD, and `/llms.txt` tells agents when to use the site. All three are generated from the same data the pages render.
+
+## Tests
+
+```bash
+npm test                                         # unit tests (Vitest)
+SITE_URL=http://localhost:4400 npm test          # plus end-to-end checks against a running server
+```
 
 ## The agent
 
