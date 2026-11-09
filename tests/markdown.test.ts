@@ -12,6 +12,16 @@ describe("pageMarkdown", () => {
     expect(md).not.toMatch(/<[a-z][^>]*>/i);
   });
 
+  it("states what he is looking for, before the projects", () => {
+    const md = pageMarkdown("/")!;
+    const seek = md.indexOf("## What I'm looking for");
+    expect(seek).toBeGreaterThan(0);
+    expect(seek).toBeLessThan(md.indexOf("## Selected work"));
+    expect(md).toContain("relocating to Spain or Portugal");
+    expect(md).not.toMatch(/visa/i);
+    expect(md).toContain("UTC-3");
+  });
+
   it("renders /now and ignores a trailing slash", () => {
     expect(pageMarkdown("/now")).toMatch(/^# Now\n/);
     expect(pageMarkdown("/now/")).toBe(pageMarkdown("/now"));

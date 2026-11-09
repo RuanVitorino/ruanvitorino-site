@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { copy, extras } from "../../content";
+import { copy, extras, productUrl } from "../../content";
 import { person } from "../../person";
 import { Controls, usePrefs } from "../../prefs";
 import SmileDemo from "./demo";
@@ -20,6 +20,7 @@ export default function Project({ id }: { id: string }) {
   const x = t.projects.find((y) => y.id === id);
   if (!x) return null;
   const [role, period] = x.meta.split(" · ");
+  const site = productUrl[id];
   const shots = extras[lang].shots[id] ?? [];
   const others = t.projects.filter((y) => y.id !== id);
   const idx = t.projects.findIndex((y) => y.id === id);
@@ -58,6 +59,16 @@ export default function Project({ id }: { id: string }) {
           <dt>{p.page.stack}</dt>
           <dd>{x.stack.join(", ")}</dd>
         </div>
+        {site && (
+          <div className="wide">
+            <dt>{p.page.site}</dt>
+            <dd>
+              <a href={site} target="_blank" rel="noopener">
+                {site.replace("https://", "")}
+              </a>
+            </dd>
+          </div>
+        )}
       </dl>
 
       {id === "smileia" && <SmileDemo lang={lang} />}

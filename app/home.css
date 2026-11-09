@@ -462,6 +462,40 @@
   color: var(--ink-2);
 }
 
+/* Label and value rows split by hairlines, like the timeline: "What I'm looking for" and the stack. */
+.hm-rows {
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.hm-rows > div {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.hm-rows dt {
+  font-weight: 500;
+}
+
+.hm-rows dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-2);
+}
+
+.hm-rows .clock {
+  display: block;
+  margin-top: 4px;
+  font: 400 12px/16px var(--mono);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
 /* Sections: title in a left column, content on the right */
 
 .hm-block {
@@ -672,6 +706,14 @@
   font-size: 14px;
   line-height: 20px;
   color: var(--ink-2);
+}
+
+.hm-timeline p {
+  max-width: 64ch;
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--muted);
 }
 
 .hm-timeline time {
@@ -1039,6 +1081,10 @@
   }
   .hm-facts li + li {
     border-top: 1px solid var(--line);
+  }
+  .hm-rows > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
   .hm-block,
   .hm-contact .hm-wrap {

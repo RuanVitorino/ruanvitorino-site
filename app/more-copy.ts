@@ -1,12 +1,10 @@
 import type { Lang } from "./content";
 
-// Strings for the interactive pieces (clock, timeline, demos, palette, terminal, contact extras, /now).
+// Strings for the interactive pieces (clock, status badge, diagrams, demos, agent extras) and the /now page.
 
 export type More = {
-  local: string; // "{time} in Penha" style label
+  local: string; // "{time} in Santa Catarina" style label
   vsEurope: (madrid: number, lisbon: number) => string;
-  now: { label: string; text: string; link: string };
-  timeline: string;
   status: { online: string; checking: string; offline: string };
   arch: string;
   before: { title: string; off: string; on: string; without: string[]; with: string[]; note: string };
@@ -27,23 +25,6 @@ export type More = {
     note: string;
   };
   agent: { listen: string; stop: string; share: string; copied: string; asked: string };
-  contact: { book: string; vcard: string; qr: string; qrNote: string; close: string };
-  palette: {
-    placeholder: string;
-    hint: string;
-    open: string;
-    groups: { go: string; actions: string };
-    home: string;
-    now: string;
-    cv: string;
-    email: string;
-    copyEmail: string;
-    copied: string;
-    theme: string;
-    terminal: string;
-    empty: string;
-  };
-  terminal: { title: string; welcome: string; help: string; unknown: (c: string) => string };
   nowPage: {
     title: string;
     updated: string;
@@ -54,10 +35,8 @@ export type More = {
 
 export const more: Record<Lang, More> = {
   en: {
-    local: "in Penha",
+    local: "in Santa Catarina",
     vsEurope: (m, l) => `${m} h behind Madrid, ${l} h behind Lisbon`,
-    now: { label: "Now", text: "building Protocolos: recording the consultation and filling in the patient record", link: "What I'm doing now" },
-    timeline: "Path",
     status: { online: "online now", checking: "checking…", offline: "status unavailable" },
     arch: "Tap a part to see what it does.",
     before: {
@@ -93,28 +72,6 @@ export const more: Record<Lang, More> = {
       note: "Educational example: real calculations depend on the product's NCM code, the state and special regimes.",
     },
     agent: { listen: "Listen", stop: "Stop", share: "Copy link to this question", copied: "Link copied", asked: "Questions recruiters asked" },
-    contact: { book: "Book 15 minutes", vcard: "Save contact", qr: "QR code", qrNote: "Scan to open ruanvitorino.dev", close: "Close" },
-    palette: {
-      placeholder: "Type a command or search…",
-      hint: "Press ⌘K anywhere",
-      open: "Open command menu",
-      groups: { go: "Go to", actions: "Actions" },
-      home: "Home",
-      now: "Now",
-      cv: "Download CV (PDF)",
-      email: "Send an email",
-      copyEmail: "Copy email address",
-      copied: "Email copied",
-      theme: "Switch theme",
-      terminal: "Open terminal",
-      empty: "Nothing found.",
-    },
-    terminal: {
-      title: "terminal",
-      welcome: "Type help to see the commands.",
-      help: "help · whoami · projects · stack · contact · cv · now · clear · exit",
-      unknown: (c) => `command not found: ${c}`,
-    },
     nowPage: {
       title: "Now",
       updated: "Updated November 2026",
@@ -128,10 +85,8 @@ export const more: Record<Lang, More> = {
     },
   },
   es: {
-    local: "en Penha",
+    local: "en Santa Catarina",
     vsEurope: (m, l) => `${m} h menos que Madrid, ${l} h menos que Lisboa`,
-    now: { label: "Ahora", text: "construyendo Protocolos: grabar la consulta y rellenar la ficha del paciente", link: "Qué hago ahora" },
-    timeline: "Trayectoria",
     status: { online: "en línea ahora", checking: "comprobando…", offline: "estado no disponible" },
     arch: "Toca una parte para ver qué hace.",
     before: {
@@ -167,28 +122,6 @@ export const more: Record<Lang, More> = {
       note: "Ejemplo didáctico: el cálculo real depende del código NCM del producto, del estado y de regímenes especiales.",
     },
     agent: { listen: "Escuchar", stop: "Parar", share: "Copiar enlace a esta pregunta", copied: "Enlace copiado", asked: "Preguntas de reclutadores" },
-    contact: { book: "Reservar 15 minutos", vcard: "Guardar contacto", qr: "Código QR", qrNote: "Escanea para abrir ruanvitorino.dev", close: "Cerrar" },
-    palette: {
-      placeholder: "Escribe un comando o busca…",
-      hint: "Pulsa ⌘K en cualquier página",
-      open: "Abrir menú de comandos",
-      groups: { go: "Ir a", actions: "Acciones" },
-      home: "Inicio",
-      now: "Ahora",
-      cv: "Descargar CV (PDF)",
-      email: "Enviar un email",
-      copyEmail: "Copiar email",
-      copied: "Email copiado",
-      theme: "Cambiar tema",
-      terminal: "Abrir terminal",
-      empty: "Sin resultados.",
-    },
-    terminal: {
-      title: "terminal",
-      welcome: "Escribe help para ver los comandos.",
-      help: "help · whoami · projects · stack · contact · cv · now · clear · exit",
-      unknown: (c) => `comando no encontrado: ${c}`,
-    },
     nowPage: {
       title: "Ahora",
       updated: "Actualizado en noviembre de 2026",
@@ -202,10 +135,8 @@ export const more: Record<Lang, More> = {
     },
   },
   pt: {
-    local: "em Penha",
+    local: "em Santa Catarina",
     vsEurope: (m, l) => `${m} h a menos que Madri, ${l} h a menos que Lisboa`,
-    now: { label: "Agora", text: "construindo o Protocolos: gravar a consulta e preencher a ficha do paciente", link: "O que estou fazendo agora" },
-    timeline: "Trajetória",
     status: { online: "online agora", checking: "verificando…", offline: "status indisponível" },
     arch: "Toque numa parte para ver o que ela faz.",
     before: {
@@ -241,28 +172,6 @@ export const more: Record<Lang, More> = {
       note: "Exemplo didático: o cálculo real depende da NCM do produto, do estado e de regimes especiais.",
     },
     agent: { listen: "Ouvir", stop: "Parar", share: "Copiar link desta pergunta", copied: "Link copiado", asked: "Perguntas de recrutadores" },
-    contact: { book: "Marcar 15 minutos", vcard: "Salvar contato", qr: "QR code", qrNote: "Aponte a câmera para abrir ruanvitorino.dev", close: "Fechar" },
-    palette: {
-      placeholder: "Digite um comando ou busque…",
-      hint: "Aperte ⌘K em qualquer página",
-      open: "Abrir menu de comandos",
-      groups: { go: "Ir para", actions: "Ações" },
-      home: "Início",
-      now: "Agora",
-      cv: "Baixar CV (PDF)",
-      email: "Enviar um e-mail",
-      copyEmail: "Copiar e-mail",
-      copied: "E-mail copiado",
-      theme: "Trocar tema",
-      terminal: "Abrir terminal",
-      empty: "Nada encontrado.",
-    },
-    terminal: {
-      title: "terminal",
-      welcome: "Digite help para ver os comandos.",
-      help: "help · whoami · projects · stack · contact · cv · now · clear · exit",
-      unknown: (c) => `comando não encontrado: ${c}`,
-    },
     nowPage: {
       title: "Agora",
       updated: "Atualizado em novembro de 2026",
@@ -277,6 +186,3 @@ export const more: Record<Lang, More> = {
   },
 };
 
-// Set this to a Cal.com (or similar) link to show the booking button.
-export const BOOKING_URL = "";
-export const EMAIL = "ruanrvitorino@gmail.com";

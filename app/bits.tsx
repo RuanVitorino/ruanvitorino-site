@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import type { Lang } from "./content";
-import { BOOKING_URL, more } from "./more-copy";
+import { more } from "./more-copy";
 
 // Hours between a time zone and Brazil (UTC-3), at this moment (handles European summer time).
 function hoursAhead(zone: string) {
@@ -31,16 +31,6 @@ export function LocalTime({ lang }: { lang: Lang }) {
     <span className="clock">
       <b>{time}</b> {t.local} · {t.vsEurope(hoursAhead("Europe/Madrid"), hoursAhead("Europe/Lisbon"))}
     </span>
-  );
-}
-
-export function NowLine({ lang }: { lang: Lang }) {
-  const n = more[lang].now;
-  return (
-    <Link className="nowline" href="/now">
-      <span className="live" aria-hidden="true" />
-      <b>{n.label}:</b> {n.text}
-    </Link>
   );
 }
 
@@ -103,19 +93,6 @@ export function Reveal({ text, by = "letter", onView = false, delay = 120, goldF
             ))}
       </span>
     </span>
-  );
-}
-
-export const RevealName = ({ text }: { text: string }) => <Reveal text={text} />;
-
-// Words sharpen from blur as the paragraph scrolls in (CSS scroll-driven, static where unsupported).
-export function FocusText({ text, className }: { text: string; className?: string }) {
-  return (
-    <p className={`focus ${className ?? ""}`}>
-      {text.split(" ").map((w, i) => (
-        <span key={i}>{w} </span>
-      ))}
-    </p>
   );
 }
 
@@ -257,35 +234,6 @@ export function BeforeAfter({ lang }: { lang: Lang }) {
       </ol>
       <p className="demo-note">{t.note}</p>
     </section>
-  );
-}
-
-// Booking link (when configured), vCard download and a QR code dialog.
-export function ContactExtras({ lang }: { lang: Lang }) {
-  const t = more[lang].contact;
-  const dlg = useRef<HTMLDialogElement>(null);
-  return (
-    <>
-      {BOOKING_URL && (
-        <a className="btn" href={BOOKING_URL} target="_blank" rel="noopener">
-          {t.book}
-        </a>
-      )}
-      <a className="btn" href="/ruan-vitorino.vcf" download>
-        {t.vcard}
-      </a>
-      <button type="button" className="btn" onClick={() => dlg.current?.showModal()}>
-        {t.qr}
-      </button>
-      <dialog ref={dlg} className="qr" onClick={(e) => e.target === dlg.current && dlg.current?.close()}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/qr.svg" alt="QR code: ruanvitorino.dev" width={220} height={220} />
-        <p>{t.qrNote}</p>
-        <button type="button" className="btn" onClick={() => dlg.current?.close()}>
-          {t.close}
-        </button>
-      </dialog>
-    </>
   );
 }
 

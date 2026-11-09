@@ -1,4 +1,4 @@
-import { copy, type Project } from "./content";
+import { copy, productUrl, type Project } from "./content";
 import { more } from "./more-copy";
 import { person } from "./person";
 
@@ -29,6 +29,10 @@ function home() {
 > ${p.role} in ${p.location}. ${p.relocate}.
 
 ${p.bio.join("\n\n")}
+
+## ${p.seeking.title}
+
+${list([...p.seeking.items, p.seeking.zone].map((i) => `**${i.k}**: ${i.v}`))}
 
 ## ${p.workTitle}
 
@@ -77,13 +81,14 @@ ${p.contactText}
 function project(x: Project) {
   const pg = p.page;
   const [role, period] = x.meta.split(" · ");
+  const site = productUrl[x.id];
   return `# ${x.name}
 
 > ${x.summary}
 
 - ${pg.role}: ${role}
 - ${pg.period}: ${period ?? ""}
-- ${pg.stack}: ${x.stack.join(", ")}
+- ${pg.stack}: ${x.stack.join(", ")}${site ? `\n- ${pg.site}: [${site.replace("https://", "")}](${site})` : ""}
 
 ## ${pg.what}
 

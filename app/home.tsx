@@ -5,7 +5,7 @@ import { copy } from "./content";
 import Agent from "./agent";
 import { person } from "./person";
 import { Controls, usePrefs } from "./prefs";
-import { Status, TransitionLink } from "./bits";
+import { LocalTime, Status, TransitionLink } from "./bits";
 import { hero } from "./hero-copy";
 import { HeroChat } from "./hero-chat";
 import { ai } from "./ai-copy";
@@ -136,6 +136,25 @@ export default function Home({ live: agentLive }: { live: boolean }) {
           ))}
         </ul>
 
+        <section className="hm-block" id="seeking" aria-labelledby="seek-title">
+          <h2 id="seek-title">{p.seeking.title}</h2>
+          <dl className="hm-rows">
+            {p.seeking.items.map((it) => (
+              <div key={it.k}>
+                <dt>{it.k}</dt>
+                <dd>{it.v}</dd>
+              </div>
+            ))}
+            <div>
+              <dt>{p.seeking.zone.k}</dt>
+              <dd>
+                {p.seeking.zone.v}
+                <LocalTime lang={lang} />
+              </dd>
+            </div>
+          </dl>
+        </section>
+
         <section className="hm-block" id="work" aria-labelledby="work-title">
           <h2 id="work-title">{p.workTitle}</h2>
           <div className="hm-work">
@@ -157,13 +176,11 @@ export default function Home({ live: agentLive }: { live: boolean }) {
                       {live.has(x.id) && <Status lang={lang} id={x.id} />}
                     </h3>
                     <p>{x.summary}</p>
-                    {!shot && (
-                      <div className="hm-tags">
-                        {x.stack.slice(0, 4).map((s) => (
-                          <span key={s}>{s}</span>
-                        ))}
-                      </div>
-                    )}
+                    <div className="hm-tags">
+                      {x.stack.slice(0, 4).map((s) => (
+                        <span key={s}>{s}</span>
+                      ))}
+                    </div>
                     <p className="hm-role">
                       <b>{role}</b> · {period}
                     </p>
@@ -187,6 +204,7 @@ export default function Home({ live: agentLive }: { live: boolean }) {
                   <div>
                     <b>{j.role}</b>
                     <span>{j.org}</span>
+                    <p>{j.text}</p>
                   </div>
                   <time>{j.when}</time>
                 </li>
@@ -207,6 +225,18 @@ export default function Home({ live: agentLive }: { live: boolean }) {
             </ol>
             <p className="hm-note">{t.spoken.join(" · ")}</p>
           </div>
+        </section>
+
+        <section className="hm-block" aria-labelledby="stack">
+          <h2 id="stack">{t.nav.stack}</h2>
+          <dl className="hm-rows">
+            {t.stack.map((g) => (
+              <div key={g.group}>
+                <dt>{g.group}</dt>
+                <dd>{g.items.join(", ")}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         <section className="hm-block" aria-labelledby="ai-title">

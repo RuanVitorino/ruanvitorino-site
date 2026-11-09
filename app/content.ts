@@ -18,6 +18,12 @@ export type Project = {
 
 export type Job = { org: string; role: string; when: string; text: string };
 
+// Public address of the products a visitor can open. Projects without one have no public page.
+export const productUrl: Record<string, string> = {
+  smileia: "https://smile.ia.br",
+  appmulti: "https://appmult.temp.ia.br",
+};
+
 export type Copy = {
   nav: { projects: string; experience: string; stack: string; contact: string };
   cvFile: string;
@@ -185,7 +191,7 @@ const protheus: Record<"en" | "es" | "pt", Project> = {
     id: "protheus",
     name: "TOTVS Protheus at aFill",
     meta: "ADVPL developer · since April 2022",
-    summary: "Four years developing aFill's foreign-trade add-on for TOTVS Protheus, Brazil's most used ERP: the import, export and DUIMP processes its client companies run every day.",
+    summary: "More than four years developing aFill's foreign-trade add-on for TOTVS Protheus, Brazil's most used ERP: the import, export and DUIMP processes its client companies run every day.",
     points: [
       "Routines, screens, reports and integrations in ADVPL and TL++ with the MVC framework, with 200+ commits of mine since 2022.",
       "Integrated DUIMP and the product catalogue with Portal Único, Brazil's government trade portal, including digital-certificate authentication and clear error messages.",
@@ -203,7 +209,7 @@ const protheus: Record<"en" | "es" | "pt", Project> = {
     id: "protheus",
     name: "TOTVS Protheus en aFill",
     meta: "Desarrollador ADVPL · desde abril de 2022",
-    summary: "Cuatro años desarrollando el módulo de comercio exterior de aFill para TOTVS Protheus, el ERP más usado en Brasil: los procesos de importación, exportación y DUIMP que sus empresas cliente usan cada día.",
+    summary: "Más de cuatro años desarrollando el módulo de comercio exterior de aFill para TOTVS Protheus, el ERP más usado en Brasil: los procesos de importación, exportación y DUIMP que sus empresas cliente usan cada día.",
     points: [
       "Rutinas, pantallas, informes e integraciones en ADVPL y TL++ con el framework MVC, con más de 200 commits míos desde 2022.",
       "Integré la DUIMP y el catálogo de productos con el Portal Único, el portal de comercio exterior del Gobierno de Brasil, con autenticación por certificado digital y mensajes de error claros.",
@@ -221,7 +227,7 @@ const protheus: Record<"en" | "es" | "pt", Project> = {
     id: "protheus",
     name: "TOTVS Protheus na aFill",
     meta: "Desenvolvedor ADVPL · desde abril de 2022",
-    summary: "Quatro anos desenvolvendo o módulo de comércio exterior da aFill para o TOTVS Protheus, o ERP mais usado do Brasil: os processos de importação, exportação e DUIMP que as empresas clientes usam todo dia.",
+    summary: "Mais de quatro anos desenvolvendo o módulo de comércio exterior da aFill para o TOTVS Protheus, o ERP mais usado do Brasil: os processos de importação, exportação e DUIMP que as empresas clientes usam todo dia.",
     points: [
       "Rotinas, telas, relatórios e integrações em ADVPL e TL++ com o framework MVC, com mais de 200 commits meus desde 2022.",
       "Integrei a DUIMP e o catálogo de produtos ao Portal Único de Comércio Exterior, com autenticação por certificado digital e mensagens de erro claras.",
@@ -509,7 +515,7 @@ export const copy: Record<Lang, Copy> = {
     ],
     expTitle: "Experience",
     jobs: [
-      { org: "Temp.IA", role: "Co-founder and lead developer", when: "May 2025 to now", text: "AI products for small businesses: assistants that answer customers on WhatsApp and Instagram." },
+      { org: "Temp.IA", role: "Co-founder and lead developer", when: "May 2025 to now", text: "aFill's AI products area: assistants that answer customers on WhatsApp and Instagram." },
       { org: "aFill Inovação em Sistemas", role: "ADVPL / TOTVS Protheus developer", when: "April 2022 to now", text: "Implementation and customization of Protheus, Brazil's most used ERP: ADVPL development, databases, release updates, support and debugging for client companies." },
       { org: "Clinitec Telecom", role: "NOC analyst", when: "January 2021 to March 2022", text: "Outage monitoring, access provisioning and real-time network troubleshooting at an internet provider." },
       { org: "Micro Solution", role: "Computer technician", when: "2020", text: "Hardware and software repair, upgrades, OS setup, backup and recovery." },
@@ -561,7 +567,7 @@ export const copy: Record<Lang, Copy> = {
     ],
     expTitle: "Experiencia",
     jobs: [
-      { org: "Temp.IA", role: "Cofundador y desarrollador principal", when: "mayo de 2025 hasta hoy", text: "Productos de IA para pequeños negocios: asistentes que atienden a clientes por WhatsApp e Instagram." },
+      { org: "Temp.IA", role: "Cofundador y desarrollador principal", when: "mayo de 2025 hasta hoy", text: "Área de productos de IA de aFill: asistentes que atienden a clientes por WhatsApp e Instagram." },
       { org: "aFill Inovação em Sistemas", role: "Desarrollador ADVPL / TOTVS Protheus", when: "abril de 2022 hasta hoy", text: "Implantación y personalización de Protheus, el ERP más usado en Brasil: desarrollo ADVPL, bases de datos, actualizaciones de versión, soporte y depuración para empresas cliente." },
       { org: "Clinitec Telecom", role: "Analista NOC", when: "enero de 2021 a marzo de 2022", text: "Monitorización de caídas, alta de accesos y resolución de incidencias de red en un proveedor de internet." },
       { org: "Micro Solution", role: "Técnico informático", when: "2020", text: "Reparación de hardware y software, mejoras, instalación de sistemas y copias de seguridad." },
@@ -613,7 +619,7 @@ export const copy: Record<Lang, Copy> = {
     ],
     expTitle: "Experiência",
     jobs: [
-      { org: "Temp.IA", role: "Cofundador e desenvolvedor principal", when: "maio de 2025 até hoje", text: "Produtos de IA para pequenos negócios: assistentes que atendem clientes pelo WhatsApp e pelo Instagram." },
+      { org: "Temp.IA", role: "Cofundador e desenvolvedor principal", when: "maio de 2025 até hoje", text: "Área de produtos de IA da aFill: assistentes que atendem clientes pelo WhatsApp e pelo Instagram." },
       { org: "aFill Inovação em Sistemas", role: "Desenvolvedor ADVPL / TOTVS Protheus", when: "abril de 2022 até hoje", text: "Implantação e customização do Protheus, o ERP mais usado do Brasil: desenvolvimento ADVPL, bases de dados, atualização de releases, suporte e debug para empresas clientes." },
       { org: "Clinitec Telecom", role: "Analista de NOC", when: "janeiro de 2021 a março de 2022", text: "Monitoramento de quedas, liberação de acessos e correção de problemas de rede em tempo real num provedor." },
       { org: "Micro Solution", role: "Técnico em manutenção de computadores", when: "2020", text: "Conserto de hardware e software, upgrades, instalação de sistemas, backup e recuperação." },
