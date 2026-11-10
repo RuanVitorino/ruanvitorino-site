@@ -165,8 +165,11 @@ html[data-wait] :is(.page, .hm) {
   box-shadow: 0 0 0 1px var(--line);
 }
 
-.langs button,
+.langs a,
 .icon-btn {
+  display: grid;
+  place-items: center;
+  text-decoration: none;
   font: inherit;
   font-size: 13px;
   font-weight: 600;
@@ -179,7 +182,7 @@ html[data-wait] :is(.page, .hm) {
   cursor: pointer;
 }
 
-.langs button[aria-pressed="true"] {
+.langs a[aria-current="true"] {
   background: var(--card);
   color: var(--ink);
   box-shadow: 0 0 0 1px var(--line);
@@ -195,7 +198,7 @@ html[data-wait] :is(.page, .hm) {
 }
 
 @media (hover: hover) {
-  .langs button:hover,
+  .langs a:hover,
   .icon-btn:hover {
     color: var(--ink);
   }
@@ -203,7 +206,7 @@ html[data-wait] :is(.page, .hm) {
 
 /* Finger-sized controls on touch screens. */
 @media (pointer: coarse) {
-  .langs button {
+  .langs a {
     min-width: 44px;
     height: 44px;
   }
@@ -1317,12 +1320,12 @@ h3,
   box-shadow: 0 0 0 1px var(--line-strong);
 }
 
-.band .langs button,
+.band .langs a,
 .band .icon-btn {
   color: var(--muted);
 }
 
-.band .langs button[aria-pressed="true"] {
+.band .langs a[aria-current="true"] {
   background: var(--raised);
   color: var(--ink);
   box-shadow: none;

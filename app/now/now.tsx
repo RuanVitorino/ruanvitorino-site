@@ -6,9 +6,11 @@ import { person } from "../person";
 import { Controls, usePrefs } from "../prefs";
 import { Reveal } from "../bits";
 import { Motion } from "../motion";
+import { localePath } from "../paths";
+import type { Lang } from "../content";
 
-export default function Now() {
-  const prefs = usePrefs();
+export default function Now({ lang: pageLang }: { lang: Lang }) {
+  const prefs = usePrefs(pageLang);
   const { lang } = prefs;
   const t = more[lang].nowPage;
   const p = person[lang];
@@ -17,7 +19,7 @@ export default function Now() {
       <Motion />
       <div className="band slim">
       <header className="top">
-        <Link className="back" href="/">
+        <Link className="back" href={localePath(lang, "/")}>
           Ruan Vitorino
         </Link>
         <Controls {...prefs} label={p.langLabel} />
@@ -38,7 +40,7 @@ export default function Now() {
         </section>
       ))}
       <p className="home-link">
-        <Link href="/">{t.back}</Link>
+        <Link href={localePath(lang, "/")}>{t.back}</Link>
       </p>
     </main>
   );

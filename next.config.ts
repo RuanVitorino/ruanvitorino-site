@@ -35,6 +35,9 @@ const config: NextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
+      // The pages under /es and /pt are in that language; <html lang> is set on the client (the layout is shared).
+      { source: "/es/:path*", headers: [{ key: "Content-Language", value: "es" }] },
+      { source: "/pt/:path*", headers: [{ key: "Content-Language", value: "pt-BR" }] },
     ];
   },
 };

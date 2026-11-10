@@ -5,6 +5,8 @@ import { copy, extras } from "./content";
 import Agent from "./agent";
 import { person } from "./person";
 import { Controls, usePrefs } from "./prefs";
+import { localePath } from "./paths";
+import type { Lang } from "./content";
 import { LocalTime, Status, TransitionLink } from "./bits";
 import { hero } from "./hero-copy";
 import { HeroChat } from "./hero-chat";
@@ -81,8 +83,8 @@ export function Icon({ name }: { name: keyof typeof paths }) {
 const wayIcons: (keyof typeof paths)[] = ["code", "plug", "user"];
 const current = /hoje|now|hoy/;
 
-export default function Home({ live: agentLive }: { live: boolean }) {
-  const prefs = usePrefs();
+export default function Home({ lang: pageLang, live: agentLive }: { lang: Lang; live: boolean }) {
+  const prefs = usePrefs(pageLang);
   const { lang } = prefs;
   const t = copy[lang];
   const p = person[lang];
@@ -167,7 +169,7 @@ export default function Home({ live: agentLive }: { live: boolean }) {
               const shotAlt = extras[lang].shots[x.id]?.find((s) => s.src === shot)?.alt ?? "";
               const wide = i === 0 || !shot;
               return (
-                <TransitionLink key={x.id} className={`hm-proj${wide ? " wide" : ""}${shot ? "" : " plain"}`} href={`/work/${x.id}`}>
+                <TransitionLink key={x.id} className={`hm-proj${wide ? " wide" : ""}${shot ? "" : " plain"}`} href={localePath(lang, `/work/${x.id}`)}>
                   {shot && (
                     <div className="hm-shot">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -272,7 +274,7 @@ export default function Home({ live: agentLive }: { live: boolean }) {
             <ul className="hm-others">
               {others.map((x) => (
                 <li key={x.id}>
-                  <Link href={`/work/${x.id}`}>
+                  <Link href={localePath(lang, `/work/${x.id}`)}>
                     <b>{x.name}</b>
                     <p>{x.summary}</p>
                     <Icon name="arrow" />
@@ -306,7 +308,7 @@ export default function Home({ live: agentLive }: { live: boolean }) {
               <a className="hm-btn hm-secondary" href="https://www.instagram.com/ruanrvitorino/" target="_blank" rel="me noopener">
                 Instagram <Icon name="out" />
               </a>
-              <Link className="hm-btn hm-secondary" href="/now">
+              <Link className="hm-btn hm-secondary" href={localePath(lang, "/now")}>
                 /now
               </Link>
             </div>

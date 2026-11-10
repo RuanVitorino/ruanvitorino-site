@@ -35,6 +35,13 @@ describe("pageMarkdown", () => {
     }
   });
 
+  it("answers the Spanish and Portuguese pages with the English Markdown", () => {
+    expect(pageMarkdown("/pt")).toBe(pageMarkdown("/"));
+    expect(pageMarkdown("/es/now")).toBe(pageMarkdown("/now"));
+    expect(pageMarkdown("/pt/work/smileia/")).toBe(pageMarkdown("/work/smileia"));
+    for (const path of ["/en", "/en/now", "/xx/now", "/pt/foo", "/pt/work/nope"]) expect(pageMarkdown(path), path).toBeNull();
+  });
+
   it("returns null for paths that are not pages", () => {
     expect(pageMarkdown("/work/nope")).toBeNull();
     expect(pageMarkdown("/__ora-404-probe")).toBeNull();

@@ -5,6 +5,7 @@ import askedLog from "./asked.json";
 import { more } from "./more-copy";
 import type { Lang } from "./content";
 import type { Person } from "./person";
+import { localePath } from "./paths";
 
 type Msg = {
   role: "user" | "assistant";
@@ -69,7 +70,7 @@ export default function Agent({
   };
 
   const share = async (i: number, question: string) => {
-    const url = `${location.origin}/?ask=${encodeURIComponent(question)}&lang=${lang}#agent`;
+    const url = `${location.origin}${localePath(lang, "/")}?ask=${encodeURIComponent(question)}#agent`;
     try {
       await navigator.clipboard.writeText(url);
     } catch {}

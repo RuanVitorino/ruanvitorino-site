@@ -1,5 +1,6 @@
 import { copy } from "./content";
 import { EMAIL, LINKS, SITE } from "./markdown";
+import type { Lang } from "./content";
 import { person } from "./person";
 
 // schema.org Person for the homepage. Every value is something the page itself says.
@@ -33,9 +34,10 @@ function spokenLanguages(spoken: string[]) {
   });
 }
 
-export function personJsonLd() {
+// Facts and languages stay in English (the entity is the same on every page); the title and description follow the page.
+export function personJsonLd(lang: Lang = "en") {
   const t = copy.en;
-  const p = person.en;
+  const p = person[lang];
   return {
     "@context": "https://schema.org",
     "@graph": [

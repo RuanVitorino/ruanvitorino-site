@@ -1,42 +1,25 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { langs, type Lang } from "./content";
+import { htmlLang, localePath, splitPath } from "./paths";
 
 type Theme = "light" | "dark";
 
-const isLang = (v: string | null): v is Lang => v === "en" || v === "es" || v === "pt";
-
-function initialLang(): Lang {
-  const fromUrl = new URLSearchParams(window.location.search).get("lang");
-  if (isLang(fromUrl)) return fromUrl;
-  try {
-    const saved = localStorage.getItem("lang");
-    if (isLang(saved)) return saved;
-  } catch {}
-  const nav = navigator.language.toLowerCase();
-  if (nav.startsWith("es")) return "es";
-  if (nav.startsWith("pt")) return "pt";
-  return "en";
-}
-
-// Language and theme shared by every page. The inline scripts in layout.tsx resolve both before paint.
-export function usePrefs() {
-  const [lang, setLang] = useState<Lang>("en");
+// Theme shared by every page. The language comes from the page's URL (/es, /pt, or the bare path for English),
+// so the server renders each page in its own language. The inline scripts in layout.tsx resolve the theme before paint.
+export function usePrefs(lang: Lang) {
   const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    setLang(initialLang());
     setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.lang = lang === "pt" ? "pt-BR" : lang;
-    if (!root.dataset.wait || root.dataset.wait === lang) delete root.dataset.wait;
-    try {
-      localStorage.setItem("lang", lang);
-    } catch {}
+    // The root layout is shared, so its <html lang> says "en" until this (or the inline script) corrects it.
+    document.documentElement.lang = htmlLang[lang];
   }, [lang]);
 
   const toggleTheme = () => {
@@ -48,7 +31,7 @@ export function usePrefs() {
     } catch {}
   };
 
-  return { lang, setLang, theme, toggleTheme };
+  return { lang, theme, toggleTheme };
 }
 
 const themeLabels: Record<Lang, { light: string; dark: string }> = {
@@ -57,20 +40,31 @@ const themeLabels: Record<Lang, { light: string; dark: string }> = {
   pt: { light: "Mudar para tema claro", dark: "Mudar para tema escuro" },
 };
 
-export function Controls({
-  lang,
-  setLang,
-  theme,
-  toggleTheme,
-  label,
-}: ReturnType<typeof usePrefs> & { label: string }) {
+// `page` overrides the current page (the 404 only knows its address after it mounts).
+export function Controls({ lang, theme, toggleTheme, label, page }: ReturnType<typeof usePrefs> & { label: string; page?: string }) {
+  // Each language button is a link to this same page in that language.
+  const here = splitPath(usePathname() ?? "/").path;
+  const path = page ?? here;
   return (
     <div className="controls">
       <div className="langs" role="group" aria-label={label}>
         {langs.map((l) => (
-          <button key={l.code} type="button" lang={l.code} aria-pressed={l.code === lang} title={l.label} onClick={() => setLang(l.code)}>
+          <Link
+            key={l.code}
+            href={localePath(l.code, path)}
+            lang={l.code}
+            hrefLang={l.code}
+            aria-current={l.code === lang ? "true" : undefined}
+            title={l.label}
+            // An explicit choice, so a visit to the bare path doesn't send this visitor back to their browser's language.
+            onClick={() => {
+              try {
+                localStorage.setItem("lang", l.code);
+              } catch {}
+            }}
+          >
             {l.code.toUpperCase()}
-          </button>
+          </Link>
         ))}
       </div>
       <button type="button" className="icon-btn" onClick={toggleTheme} aria-label={theme === "dark" ? themeLabels[lang].light : themeLabels[lang].dark}>

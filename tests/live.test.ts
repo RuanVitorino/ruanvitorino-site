@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { copy } from "../app/content";
+import { hero } from "../app/hero-copy";
 import { KNOWS_ABOUT } from "../app/structured-data";
 
 // End-to-end checks against a running server. Skipped unless SITE_URL is set:
@@ -37,13 +38,46 @@ describe.skipIf(!BASE)(`live: ${BASE}`, () => {
   it("every page in the sitemap answers in Markdown", async () => {
     const xml = await (await get("/sitemap.xml")).text();
     const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
-    expect(urls.length).toBe(2 + copy.en.projects.length);
+    expect(urls.length).toBe(3 * (2 + copy.en.projects.length));
     for (const path of urls) {
       const res = await get(path, "text/markdown");
       expect(res.status, path).toBe(200);
       expect(res.headers.get("content-type"), path).toMatch(/^text\/markdown/);
       expect((await res.text()).startsWith("# "), path).toBe(true);
     }
+  });
+
+  it("/es and /pt are rendered in their language on the server, each with a self canonical and the full hreflang set", async () => {
+    const cases = [
+      { path: "/pt", lang: "pt", canonical: "https://ruanvitorino.dev/pt", base: "/", headline: hero.pt.headline, header: "pt-BR" },
+      { path: "/es", lang: "es", canonical: "https://ruanvitorino.dev/es", base: "/", headline: hero.es.headline, header: "es" },
+      { path: "/pt/now", lang: "pt", canonical: "https://ruanvitorino.dev/pt/now", base: "/now", headline: "Agora", header: "pt-BR" },
+      { path: "/es/work/smileia", lang: "es", canonical: "https://ruanvitorino.dev/es/work/smileia", base: "/work/smileia", headline: "SmileIA", header: "es" },
+      { path: "/", lang: "en", canonical: "https://ruanvitorino.dev", base: "/", headline: hero.en.headline, header: null },
+    ];
+    for (const c of cases) {
+      const res = await get(c.path, "text/html");
+      expect(res.status, c.path).toBe(200);
+      expect(res.headers.get("content-language"), c.path).toBe(c.header);
+      const html = await res.text();
+      expect(html, c.path).toContain(c.headline);
+      expect(html, c.path).toContain(`<link rel="canonical" href="${c.canonical}"/>`);
+      const alt = Object.fromEntries([...html.matchAll(/<link rel="alternate" hrefLang="([^"]+)" href="([^"]+)"/gi)].map((m) => [m[1], m[2]]));
+      const at = (p: string) => `https://ruanvitorino.dev${p === "/" ? "" : p}`;
+      expect(alt, c.path).toEqual({
+        en: at(c.base),
+        es: at(c.base === "/" ? "/es" : `/es${c.base}`),
+        "pt-BR": at(c.base === "/" ? "/pt" : `/pt${c.base}`),
+        "x-default": at(c.base),
+      });
+    }
+  });
+
+  it("language pages that do not exist are 404, and /en goes back to the bare path", async () => {
+    for (const path of ["/pt/foo", "/es/work/nope", "/fr", "/fr/now"]) expect((await get(path, "text/html")).status, path).toBe(404);
+    const en = await fetch(`${BASE}/en/now`, { redirect: "manual" });
+    expect(en.status).toBe(308);
+    expect(new URL(en.headers.get("location")!, BASE).pathname).toBe("/now");
   });
 
   it("unknown paths: 404 in both representations, Markdown body links to llms.txt", async () => {

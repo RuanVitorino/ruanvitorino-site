@@ -34,6 +34,7 @@ ${t.projects.map((x) => `- [${x.name}](${SITE}/work/${x.id}): ${x.summary}`).joi
 
 ## Optional
 
-- [Sitemap](${SITE}/sitemap.xml): every page URL
+- [Sitemap](${SITE}/sitemap.xml): every page URL, with the language versions of each page
+- [Spanish](${SITE}/es) and [Portuguese](${SITE}/pt): the same pages in those languages, under /es and /pt; the Markdown version is always English
 `;
 }

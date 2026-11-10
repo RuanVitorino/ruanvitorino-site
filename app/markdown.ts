@@ -1,5 +1,6 @@
 import { copy, productUrl, type Project } from "./content";
 import { more } from "./more-copy";
+import { splitPath } from "./paths";
 import { person } from "./person";
 
 // Markdown twins of the HTML pages, served from the same URLs to clients that send Accept: text/markdown.
@@ -119,8 +120,10 @@ ${n.sections.map((s) => `## ${s.title}\n\n${list(s.items)}`).join("\n\n")}
 }
 
 // The Markdown for a page path, or null when the path is not a page (the caller answers 404).
+// /es/... and /pt/... are the Spanish and Portuguese HTML pages; their Markdown twin is the English one.
 export function pageMarkdown(pathname: string): string | null {
-  const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  const trimmed = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  const path = splitPath(trimmed).path;
   if (path === "/") return home();
   if (path === "/now") return now();
   const m = /^\/work\/([^/]+)$/.exec(path);

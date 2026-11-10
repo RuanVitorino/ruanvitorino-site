@@ -8,11 +8,13 @@ import SmileDemo from "./demo";
 import { Arch, BeforeAfter, Frame, HoverList, Reveal, Status, useTransitionDone } from "../../bits";
 import { AppMultiDemo, TaxCalc } from "../../demos";
 import { Motion } from "../../motion";
+import { localePath } from "../../paths";
+import type { Lang } from "../../content";
 
 const nextLabel = { en: "Next project", es: "Siguiente proyecto", pt: "Próximo projeto" } as const;
 
-export default function Project({ id }: { id: string }) {
-  const prefs = usePrefs();
+export default function Project({ id, lang: pageLang }: { id: string; lang: Lang }) {
+  const prefs = usePrefs(pageLang);
   useTransitionDone();
   const { lang } = prefs;
   const t = copy[lang];
@@ -31,7 +33,7 @@ export default function Project({ id }: { id: string }) {
       <Motion />
       <div className="band slim">
         <header className="top">
-          <Link className="back" href="/">
+          <Link className="back" href={localePath(lang, "/")}>
             Ruan Vitorino
           </Link>
           <Controls {...prefs} label={p.langLabel} />
@@ -104,15 +106,15 @@ export default function Project({ id }: { id: string }) {
         <HoverList
           items={others.map((y) => {
             const first = extras[lang].shots[y.id]?.[0]?.src;
-            return { href: `/work/${y.id}`, title: y.name, text: y.summary, img: first?.replace(".jpg", "-800.jpg") };
+            return { href: localePath(lang, `/work/${y.id}`), title: y.name, text: y.summary, img: first?.replace(".jpg", "-800.jpg") };
           })}
         />
         <p className="home-link">
-          <Link href="/">{p.page.back}</Link>
+          <Link href={localePath(lang, "/")}>{p.page.back}</Link>
         </p>
       </section>
 
-      <Link className="nextcard" href={`/work/${next.id}`} data-reveal data-tilt>
+      <Link className="nextcard" href={localePath(lang, `/work/${next.id}`)} data-reveal data-tilt>
         <span className="next-k">{nextLabel[lang]}</span>
         <strong>{next.name}</strong>
         <span className="next-v">{next.summary}</span>
