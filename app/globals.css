@@ -201,6 +201,19 @@ html[data-wait] :is(.page, .hm) {
   }
 }
 
+/* Finger-sized controls on touch screens. */
+@media (pointer: coarse) {
+  .langs button {
+    min-width: 44px;
+    height: 44px;
+  }
+
+  .icon-btn {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 /* Bio */
 
 /* Agent: the one authored moment on the page. */

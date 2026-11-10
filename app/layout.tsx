@@ -12,14 +12,15 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ruanvitorino.dev"),
-  title: "Ruan Vitorino",
+  title: "Ruan Vitorino · Full-stack developer",
   description,
   openGraph: {
     type: "website",
+    siteName: "Ruan Vitorino",
     url: "/",
     title: "Ruan Vitorino, full-stack developer",
     description,
-    images: [{ url: "/og.png", width: 1200, height: 627 }],
+    images: [{ url: "/og.png", width: 1200, height: 630 }],
   },
   twitter: { card: "summary_large_image" },
 };
@@ -31,10 +32,11 @@ export const viewport: Viewport = {
   ],
 };
 
-// Runs before paint so the saved theme never flashes the other one.
+// Both run before paint. Language: anything other than English marks <html data-wait> so the English HTML stays
+// hidden until the client swaps the copy (see globals.css). Theme: the saved choice, else the system preference.
 const langScript = `(function(){try{var d=document.documentElement,ok=function(v){return v==='en'||v==='es'||v==='pt'},l=new URLSearchParams(location.search).get('lang');if(!ok(l)){l=localStorage.getItem('lang')}if(!ok(l)){var n=navigator.language.toLowerCase();l=n.indexOf('es')===0?'es':n.indexOf('pt')===0?'pt':'en'}if(l!=='en'){d.dataset.wait=l}}catch(e){}})()`;
 
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'){t='dark'}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='dark'}})()`;
+const themeScript = `(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}document.documentElement.dataset.theme=t})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

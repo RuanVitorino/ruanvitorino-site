@@ -44,7 +44,7 @@ export const person: Record<Lang, Person> = {
     ],
     location: "Santa Catarina, Brazil",
     relocate: "Remote for a European team, or relocating to Spain or Portugal",
-    featured: ["smileia", "protocolos", "appmulti", "protheus"],
+    featured: ["smileia", "appmulti", "protocolos", "protheus"],
     agent: {
       title: "Ask my agent",
       sub: "It answers in English, español or português, using only my CV and project notes.",
@@ -101,7 +101,7 @@ export const person: Record<Lang, Person> = {
     ],
     location: "Santa Catarina, Brasil",
     relocate: "En remoto para un equipo europeo, o mudanza a España o Portugal",
-    featured: ["smileia", "protocolos", "appmulti", "protheus"],
+    featured: ["smileia", "appmulti", "protocolos", "protheus"],
     agent: {
       title: "Pregunta a mi agente",
       sub: "Responde en español, English o português, solo con lo que está en mi CV y en mis proyectos.",
@@ -158,7 +158,7 @@ export const person: Record<Lang, Person> = {
     ],
     location: "Santa Catarina, Brasil",
     relocate: "Remoto para um time europeu, ou mudança para Espanha ou Portugal",
-    featured: ["smileia", "protocolos", "appmulti", "protheus"],
+    featured: ["smileia", "appmulti", "protocolos", "protheus"],
     agent: {
       title: "Pergunte ao meu agente",
       sub: "Responde em português, español ou English, só com o que está no meu CV e nos meus projetos.",

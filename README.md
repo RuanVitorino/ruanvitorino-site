@@ -6,11 +6,12 @@ Next.js 15 (App Router), React 19 and TypeScript, deployed on Vercel. No UI libr
 
 ## What's in it
 
-- **Three languages (English, Spanish, Portuguese)** without route duplication. All copy lives in typed objects (`app/content.ts`, `app/person.ts`, `app/more-copy.ts`), and an inline script picks the language and theme before first paint, so there's no flash of the wrong one.
+- **Three languages (English, Spanish, Portuguese)** without route duplication. All copy lives in typed objects (`app/content.ts`, `app/person.ts`, `app/more-copy.ts`), and the HTML is served in English. An inline script resolves the theme and the language before first paint: the theme (the saved choice, otherwise the system preference) applies at once, and for Spanish or Portuguese the content stays hidden until the client swaps the copy, for 1.2 s at most, so English never flashes first.
 - **Project pages** generated statically from the same data (`app/work/[id]`), each with an interactive "how it works" diagram and a simulated demo with fictional data.
 - **A live status badge** for products that run in production (`app/api/status`), cached at the edge for a minute so visitors never hit the product directly.
 - **"Ask my agent"**: a chat that answers recruiters' questions about my experience, described below.
 - **Readable by AI agents.** Every page URL also answers in Markdown when requested with `Accept: text/markdown` (`middleware.ts`, `app/negotiate.ts`, `app/markdown.ts`). Markdown responses carry `Vary: Accept`, and unknown paths get a Markdown 404. The homepage carries schema.org `Person` JSON-LD, and `/llms.txt` tells agents when to use the site. All three are generated from the same data the pages render.
+- **Security headers** on every response (`next.config.ts`): a Content-Security-Policy limited to the site's own origin, `nosniff`, a strict referrer policy and no framing.
 
 ## Tests
 

@@ -94,7 +94,7 @@ export default function Project({ id }: { id: string }) {
 
       <section aria-labelledby="how" data-reveal>
         <h2 id="how">{p.page.how}</h2>
-        <Arch lang={lang} parts={x.architecture} />
+        <Arch lang={lang} parts={x.architecture} labelledBy="how" />
       </section>
 
       <section aria-labelledby="more" data-reveal>

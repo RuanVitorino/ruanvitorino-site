@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { copy } from "./content";
+import { copy, extras } from "./content";
 import Agent from "./agent";
 import { person } from "./person";
 import { Controls, usePrefs } from "./prefs";
@@ -10,11 +10,14 @@ import { hero } from "./hero-copy";
 import { HeroChat } from "./hero-chat";
 import { ai } from "./ai-copy";
 
+// The screenshot each card shows. Its description comes from the same entry the project page uses.
 const thumbs: Record<string, string> = {
-  smileia: "/shots/smile-hero-800.jpg",
-  appmulti: "/shots/appmulti-insights-800.jpg",
-  protocolos: "/shots/protocolos-ficha-800.jpg",
+  smileia: "/shots/smile-hero.jpg",
+  appmulti: "/shots/appmulti-insights.jpg",
+  protocolos: "/shots/protocolos-ficha.jpg",
 };
+
+const photoAlt = { en: "Photo of Ruan Vitorino", es: "Foto de Ruan Vitorino", pt: "Foto de Ruan Vitorino" } as const;
 
 const live = new Set(["smileia"]);
 
@@ -94,7 +97,7 @@ export default function Home({ live: agentLive }: { live: boolean }) {
         <header className="hm-top">
           <div className="hm-me">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/ruan.jpg" alt="" width={40} height={40} />
+            <img src="/ruan.jpg" alt={photoAlt[lang]} width={40} height={40} />
             <div>
               <p className="hm-name">Ruan Vitorino</p>
               <p>
@@ -161,13 +164,14 @@ export default function Home({ live: agentLive }: { live: boolean }) {
             {featured.map((x, i) => {
               const [role, period] = x.meta.split(" · ");
               const shot = thumbs[x.id];
+              const shotAlt = extras[lang].shots[x.id]?.find((s) => s.src === shot)?.alt ?? "";
               const wide = i === 0 || !shot;
               return (
                 <TransitionLink key={x.id} className={`hm-proj${wide ? " wide" : ""}${shot ? "" : " plain"}`} href={`/work/${x.id}`}>
                   {shot && (
                     <div className="hm-shot">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={shot} alt="" loading="lazy" width={800} height={500} />
+                      <img src={shot.replace(".jpg", "-800.jpg")} alt={shotAlt} loading="lazy" width={800} height={500} />
                     </div>
                   )}
                   <div className="hm-proj-body">

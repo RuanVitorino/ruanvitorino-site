@@ -17,6 +17,22 @@ export const KNOWS_ABOUT = [
   "Vercel",
 ];
 
+const LANGUAGE_CODES: Record<string, string> = { Portuguese: "pt", English: "en", Spanish: "es" };
+
+// "English, basic (A2), studying" becomes a Language with its level, so a reader doesn't assume fluency.
+function spokenLanguages(spoken: string[]) {
+  return spoken.map((line) => {
+    const cut = line.indexOf(", ");
+    const name = cut < 0 ? line : line.slice(0, cut);
+    return {
+      "@type": "Language",
+      name,
+      ...(LANGUAGE_CODES[name] && { alternateName: LANGUAGE_CODES[name] }),
+      ...(cut >= 0 && { description: line.slice(cut + 2) }),
+    };
+  });
+}
+
 export function personJsonLd() {
   const t = copy.en;
   const p = person.en;
@@ -35,7 +51,7 @@ export function personJsonLd() {
         address: { "@type": "PostalAddress", addressRegion: "Santa Catarina", addressCountry: "BR" },
         sameAs: [LINKS.linkedin, LINKS.github],
         knowsAbout: KNOWS_ABOUT,
-        knowsLanguage: ["pt", "en", "es"],
+        knowsLanguage: spokenLanguages(t.spoken),
         // Current jobs only ("... to now").
         worksFor: t.jobs.filter((j) => /to now$/.test(j.when)).map((j) => ({ "@type": "Organization", name: j.org })),
       },

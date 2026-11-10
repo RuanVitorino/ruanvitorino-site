@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Fragment, useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { Fragment, useEffect, useId, useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode } from "react";
 import type { Lang } from "./content";
 import { more } from "./more-copy";
 
@@ -146,11 +146,31 @@ export function Status({ lang, id }: { lang: Lang; id: string }) {
   );
 }
 
-// Clickable architecture: pick a part, read what it does.
-export function Arch({ lang, parts }: { lang: Lang; parts: { title: string; text: string }[] }) {
+// Clickable architecture: pick a part, read what it does. A tab list: arrow keys, Home and End move between parts.
+export function Arch({ lang, parts, labelledBy }: { lang: Lang; parts: { title: string; text: string }[]; labelledBy?: string }) {
   const [i, setI] = useState(0);
   const [auto, setAuto] = useState(true);
   const box = useRef<HTMLDivElement>(null);
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const uid = useId();
+  const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    const last = parts.length - 1;
+    const to =
+      e.key === "ArrowRight" || e.key === "ArrowDown"
+        ? i === last ? 0 : i + 1
+        : e.key === "ArrowLeft" || e.key === "ArrowUp"
+          ? i === 0 ? last : i - 1
+          : e.key === "Home"
+            ? 0
+            : e.key === "End"
+              ? last
+              : -1;
+    if (to < 0) return;
+    e.preventDefault();
+    setAuto(false);
+    setI(to);
+    tabs.current[to]?.focus();
+  };
   // Walks through the parts on its own while visible, until someone picks one.
   useEffect(() => {
     if (!auto || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -164,15 +184,22 @@ export function Arch({ lang, parts }: { lang: Lang; parts: { title: string; text
     };
   }, [auto, parts.length]);
   return (
-    <div className={`arch ${auto ? "auto" : ""}`} ref={box}>
+    // Keyboard focus anywhere inside stops the walk, so the selected part never moves under the reader.
+    <div className={`arch ${auto ? "auto" : ""}`} ref={box} onFocus={() => setAuto(false)}>
       <p className="arch-hint">{more[lang].arch}</p>
-      <div className="arch-nodes" role="tablist">
+      <div className="arch-nodes" role="tablist" aria-labelledby={labelledBy} onKeyDown={onKey}>
         {parts.map((p, k) => (
           <button
             key={p.title}
+            ref={(el) => {
+              tabs.current[k] = el;
+            }}
             type="button"
             role="tab"
+            id={`${uid}-tab-${k}`}
             aria-selected={k === i}
+            aria-controls={`${uid}-panel`}
+            tabIndex={k === i ? 0 : -1}
             onClick={() => {
               setAuto(false);
               setI(k);
@@ -183,7 +210,7 @@ export function Arch({ lang, parts }: { lang: Lang; parts: { title: string; text
           </button>
         ))}
       </div>
-      <p className="arch-text" role="tabpanel" key={i}>
+      <p className="arch-text" role="tabpanel" id={`${uid}-panel`} aria-labelledby={`${uid}-tab-${i}`} tabIndex={0} key={i}>
         {parts[i].text}
       </p>
     </div>

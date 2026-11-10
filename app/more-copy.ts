@@ -24,7 +24,7 @@ export type More = {
     landed: string;
     note: string;
   };
-  agent: { listen: string; stop: string; share: string; copied: string; asked: string };
+  agent: { listen: string; stop: string; share: string; copied: string; asked: string; logged: string };
   nowPage: {
     title: string;
     updated: string;
@@ -71,7 +71,7 @@ export const more: Record<Lang, More> = {
       landed: "Landed cost",
       note: "Educational example: real calculations depend on the product's NCM code, the state and special regimes.",
     },
-    agent: { listen: "Listen", stop: "Stop", share: "Copy link to this question", copied: "Link copied", asked: "Questions recruiters asked" },
+    agent: { listen: "Listen", stop: "Stop", share: "Copy link to this question", copied: "Link copied", asked: "Questions recruiters asked", logged: "Only the text of your question is logged, so I can see what people ask." },
     nowPage: {
       title: "Now",
       updated: "Updated November 2026",
@@ -121,7 +121,7 @@ export const more: Record<Lang, More> = {
       landed: "Coste final",
       note: "Ejemplo didáctico: el cálculo real depende del código NCM del producto, del estado y de regímenes especiales.",
     },
-    agent: { listen: "Escuchar", stop: "Parar", share: "Copiar enlace a esta pregunta", copied: "Enlace copiado", asked: "Preguntas de reclutadores" },
+    agent: { listen: "Escuchar", stop: "Parar", share: "Copiar enlace a esta pregunta", copied: "Enlace copiado", asked: "Preguntas de reclutadores", logged: "Solo se registra el texto de tu pregunta, para que yo vea qué se pregunta." },
     nowPage: {
       title: "Ahora",
       updated: "Actualizado en noviembre de 2026",
@@ -171,7 +171,7 @@ export const more: Record<Lang, More> = {
       landed: "Custo final",
       note: "Exemplo didático: o cálculo real depende da NCM do produto, do estado e de regimes especiais.",
     },
-    agent: { listen: "Ouvir", stop: "Parar", share: "Copiar link desta pergunta", copied: "Link copiado", asked: "Perguntas de recrutadores" },
+    agent: { listen: "Ouvir", stop: "Parar", share: "Copiar link desta pergunta", copied: "Link copiado", asked: "Perguntas de recrutadores", logged: "Só o texto da sua pergunta fica registrado, para eu ver o que perguntam." },
     nowPage: {
       title: "Agora",
       updated: "Atualizado em novembro de 2026",
