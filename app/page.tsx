@@ -1,12 +1,9 @@
-import Home from "./home";
-import { jsonLdScript, personJsonLd } from "./structured-data";
+import type { Metadata } from "next";
+import { HomePage } from "./home-page";
+import { homeMetadata } from "./locale";
 
-// Read at build time: the free-text box only appears once the API key is set (env change + redeploy).
+export const metadata: Metadata = homeMetadata("en");
+
 export default function Page() {
-  return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(personJsonLd()) }} />
-      <Home live={Boolean(process.env.ANTHROPIC_API_KEY)} />
-    </>
-  );
+  return <HomePage lang="en" />;
 }

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { nowMetadata } from "../locale";
 import Now from "./now";
 
-export const metadata: Metadata = { title: "Now · Ruan Vitorino", alternates: { canonical: "/now" } };
+export const metadata: Metadata = nowMetadata("en");
 
 export default function Page() {
-  return <Now />;
+  return <Now lang="en" />;
 }

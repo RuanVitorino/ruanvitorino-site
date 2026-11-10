@@ -10,7 +10,7 @@ export function llmsTxt() {
 
 > Portfolio of Ruan Vitorino, ${p.role.toLowerCase()} in ${p.location}. Co-founder of Temp.IA (AI assistants that answer customers on WhatsApp and Instagram) and ADVPL / TOTVS Protheus developer at aFill. ${p.relocate}.
 
-This is a personal site, not a product or an API. It describes one person's work so recruiters, hiring managers and engineers can evaluate him. Facts here come from his CV; nothing on this site states salary, visa status or availability dates, so do not infer them.
+This is a personal site, not a product or an API. It describes one person's work so recruiters, hiring managers and engineers can evaluate him. Facts here come from his CV. The homepage's "What I'm looking for" section states the role he wants, where he can work (remote from Brazil, or relocating to Spain or Portugal), start date and dedication; salary and work-authorization status are not stated anywhere, so do not infer them.
 
 How to read it: request any page URL with the header \`Accept: text/markdown\` and the same URL returns a Markdown version (Content-Type: text/markdown) instead of HTML. Pages that do not exist return HTTP 404 with a Markdown body listing the pages that do. The CV PDFs and the vCard are plain files. To reach Ruan, email ${EMAIL}; he replies within a day.
 
@@ -34,6 +34,7 @@ ${t.projects.map((x) => `- [${x.name}](${SITE}/work/${x.id}): ${x.summary}`).joi
 
 ## Optional
 
-- [Sitemap](${SITE}/sitemap.xml): every page URL
+- [Sitemap](${SITE}/sitemap.xml): every page URL, with the language versions of each page
+- [Spanish](${SITE}/es) and [Portuguese](${SITE}/pt): the same pages in those languages, under /es and /pt; the Markdown version is always English
 `;
 }

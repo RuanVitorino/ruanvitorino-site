@@ -31,19 +31,20 @@ export type Person = {
   contactText: string;
   cv: string;
   langLabel: string;
-  page: { role: string; period: string; stack: string; what: string; how: string; back: string; more: string };
+  seeking: { title: string; items: { k: string; v: string }[]; zone: { k: string; v: string } };
+  page: { role: string; period: string; stack: string; site: string; what: string; how: string; back: string; more: string };
 };
 
 export const person: Record<Lang, Person> = {
   en: {
     role: "Full-stack developer",
     bio: [
-      "I co-founded Temp.IA and work on all of its products: AI assistants that answer customers on WhatsApp and Instagram. The main one, SmileIA, books appointments for dental clinics.",
-      "I've also worked for more than four years at aFill, which builds a foreign-trade add-on for TOTVS Protheus, the business software most Brazilian companies run on. I develop the import and export side: taxes and the link to Brazil's customs system.",
+      "I co-founded Temp.IA, the AI products area of aFill, and work on all of its products: AI assistants that answer customers on WhatsApp and Instagram. The main one, SmileIA, books appointments for dental clinics.",
+      "At aFill I've also worked for more than four years on its foreign-trade add-on for TOTVS Protheus, the business software most Brazilian companies run on. I develop the import and export side: taxes and the link to Brazil's customs system.",
     ],
     location: "Santa Catarina, Brazil",
-    relocate: "Open to relocating to Europe",
-    featured: ["smileia", "protocolos", "appmulti", "protheus"],
+    relocate: "Remote for a European team, or relocating to Spain or Portugal",
+    featured: ["smileia", "appmulti", "protocolos", "protheus"],
     agent: {
       title: "Ask my agent",
       sub: "It answers in English, español or português, using only my CV and project notes.",
@@ -62,9 +63,9 @@ export const person: Record<Lang, Person> = {
           src: ["CV · Temp.IA", "Project · SmileIA", "Project · AppMulti"],
         },
         {
-          q: "What's his English level?",
-          a: "Basic (A2), and he studies every week. He reads technical documentation comfortably but is still more at ease speaking Portuguese. His Spanish is basic too.",
-          src: ["CV · Languages"],
+          q: "Can he work in Europe, and when could he start?",
+          a: "Yes, in two ways: remote from Brazil for a European team, or relocating to Spain or Portugal. The start date is agreed once there's an offer. If hired he leaves aFill, and Temp.IA, the AI area he co-founded there, goes on without his day-to-day work.",
+          src: ["Site · What I'm looking for"],
         },
         {
           q: "What has he done with databases?",
@@ -80,17 +81,27 @@ export const person: Record<Lang, Person> = {
     contactText: "Email is the fastest way to reach me. I answer within a day.",
     cv: "CV (PDF)",
     langLabel: "Language",
-    page: { role: "My role", period: "Period", stack: "Stack", what: "What it does", how: "How it works", back: "Back to the home page", more: "More projects" },
+    seeking: {
+      title: "What I'm looking for",
+      items: [
+        { k: "Role", v: "Mid-level full-stack or back-end developer, TypeScript and Node.js." },
+        { k: "Where", v: "Remote from Brazil for a European team, or relocating to Spain or Portugal." },
+        { k: "Start", v: "Agreed once there is an offer." },
+        { k: "Dedication", v: "Full-time. If hired, I leave aFill; Temp.IA, its AI products area that I co-founded, goes on without my day-to-day work." },
+      ],
+      zone: { k: "Time zone", v: "UTC-3. The European afternoon is my morning." },
+    },
+    page: { role: "My role", period: "Period", stack: "Stack", site: "Product site", what: "What it does", how: "How it works", back: "Back to the home page", more: "More projects" },
   },
   es: {
     role: "Desarrollador full-stack",
     bio: [
-      "Soy cofundador de Temp.IA y participo en todos sus productos: asistentes de IA que atienden a clientes por WhatsApp e Instagram. El principal, SmileIA, reserva citas para clínicas dentales.",
-      "Además, llevo más de cuatro años en aFill, que desarrolla un módulo de comercio exterior para TOTVS Protheus, el sistema de gestión que usan la mayoría de las empresas brasileñas. Allí desarrollo la parte de importación y exportación: impuestos y la conexión con la aduana de Brasil.",
+      "Soy cofundador de Temp.IA, el área de productos de IA de aFill, y participo en todos sus productos: asistentes de IA que atienden a clientes por WhatsApp e Instagram. El principal, SmileIA, reserva citas para clínicas dentales.",
+      "En aFill llevo además más de cuatro años en su módulo de comercio exterior para TOTVS Protheus, el sistema de gestión que usan la mayoría de las empresas brasileñas. Allí desarrollo la parte de importación y exportación: impuestos y la conexión con la aduana de Brasil.",
     ],
     location: "Santa Catarina, Brasil",
-    relocate: "Disponible para trasladarme a Europa",
-    featured: ["smileia", "protocolos", "appmulti", "protheus"],
+    relocate: "En remoto para un equipo europeo, o mudanza a España o Portugal",
+    featured: ["smileia", "appmulti", "protocolos", "protheus"],
     agent: {
       title: "Pregunta a mi agente",
       sub: "Responde en español, English o português, solo con lo que está en mi CV y en mis proyectos.",
@@ -109,9 +120,9 @@ export const person: Record<Lang, Person> = {
           src: ["CV · Temp.IA", "Proyecto · SmileIA", "Proyecto · AppMulti"],
         },
         {
-          q: "¿Qué nivel de inglés tiene?",
-          a: "Básico (A2), y estudia cada semana. Lee documentación técnica sin problema, pero todavía se siente más cómodo hablando en portugués. Su español también es básico.",
-          src: ["CV · Idiomas"],
+          q: "¿Puede trabajar en Europa y cuándo podría empezar?",
+          a: "Sí, de dos formas: en remoto desde Brasil para un equipo europeo, o mudándose a España o Portugal. La fecha de inicio se acuerda cuando hay oferta. Si lo contratan deja aFill, y Temp.IA, el área de IA que cofundó allí, sigue sin su trabajo diario.",
+          src: ["Sitio · Lo que busco"],
         },
         {
           q: "¿Qué experiencia tiene con bases de datos?",
@@ -127,17 +138,27 @@ export const person: Record<Lang, Person> = {
     contactText: "El email es la forma más rápida de hablar conmigo. Respondo en menos de un día.",
     cv: "CV (PDF)",
     langLabel: "Idioma",
-    page: { role: "Mi papel", period: "Periodo", stack: "Stack", what: "Qué hace", how: "Cómo funciona", back: "Volver al inicio", more: "Más proyectos" },
+    seeking: {
+      title: "Lo que busco",
+      items: [
+        { k: "Puesto", v: "Desarrollador full-stack o back-end de nivel mid, TypeScript y Node.js." },
+        { k: "Dónde", v: "En remoto desde Brasil para un equipo europeo, o mudándome a España o Portugal." },
+        { k: "Inicio", v: "A convenir cuando haya oferta." },
+        { k: "Dedicación", v: "Jornada completa. Si me contratan, dejo aFill; Temp.IA, su área de productos de IA que cofundé, sigue sin mi trabajo diario." },
+      ],
+      zone: { k: "Huso horario", v: "UTC-3. La tarde europea es mi mañana." },
+    },
+    page: { role: "Mi papel", period: "Periodo", stack: "Stack", site: "Sitio del producto", what: "Qué hace", how: "Cómo funciona", back: "Volver al inicio", more: "Más proyectos" },
   },
   pt: {
     role: "Desenvolvedor full-stack",
     bio: [
-      "Sou cofundador da Temp.IA e participo de todos os produtos: assistentes de IA que atendem clientes pelo WhatsApp e pelo Instagram. O principal, o SmileIA, marca consultas para clínicas odontológicas.",
-      "Também trabalho há mais de quatro anos na aFill, que desenvolve um módulo de comércio exterior para o TOTVS Protheus, o sistema de gestão mais usado pelas empresas brasileiras. Lá cuido da importação e exportação: impostos e a ligação com o Portal Único da Receita.",
+      "Sou cofundador da Temp.IA, a área de produtos de IA da aFill, e participo de todos os produtos: assistentes de IA que atendem clientes pelo WhatsApp e pelo Instagram. O principal, o SmileIA, marca consultas para clínicas odontológicas.",
+      "Na aFill também trabalho há mais de quatro anos no módulo de comércio exterior para o TOTVS Protheus, o sistema de gestão mais usado pelas empresas brasileiras. Lá cuido da importação e exportação: impostos e a ligação com o Portal Único da Receita.",
     ],
     location: "Santa Catarina, Brasil",
-    relocate: "Disponível para me mudar para a Europa",
-    featured: ["smileia", "protocolos", "appmulti", "protheus"],
+    relocate: "Remoto para um time europeu, ou mudança para Espanha ou Portugal",
+    featured: ["smileia", "appmulti", "protocolos", "protheus"],
     agent: {
       title: "Pergunte ao meu agente",
       sub: "Responde em português, español ou English, só com o que está no meu CV e nos meus projetos.",
@@ -156,9 +177,9 @@ export const person: Record<Lang, Person> = {
           src: ["CV · Temp.IA", "Projeto · SmileIA", "Projeto · AppMulti"],
         },
         {
-          q: "Qual o nível de inglês dele?",
-          a: "Básico (A2), e ele estuda toda semana. Lê documentação técnica sem dificuldade, mas ainda se sente mais à vontade conversando em português. O espanhol também é básico.",
-          src: ["CV · Idiomas"],
+          q: "Ele pode trabalhar na Europa e quando poderia começar?",
+          a: "Sim, de dois jeitos: remoto do Brasil para um time europeu, ou mudando para Espanha ou Portugal. A data de início é combinada quando há proposta. Se for contratado ele sai da aFill, e a Temp.IA, área de IA que ele cofundou lá, segue sem a operação diária dele.",
+          src: ["Site · O que procuro"],
         },
         {
           q: "Que experiência ele tem com bancos de dados?",
@@ -174,6 +195,16 @@ export const person: Record<Lang, Person> = {
     contactText: "O e-mail é o jeito mais rápido de falar comigo. Respondo em até um dia.",
     cv: "CV (PDF)",
     langLabel: "Idioma",
-    page: { role: "Meu papel", period: "Período", stack: "Stack", what: "O que faz", how: "Como funciona", back: "Voltar para o início", more: "Mais projetos" },
+    seeking: {
+      title: "O que procuro",
+      items: [
+        { k: "Papel", v: "Desenvolvedor full-stack ou back-end pleno, TypeScript e Node.js." },
+        { k: "Onde", v: "Remoto do Brasil para um time europeu, ou mudança para Espanha ou Portugal." },
+        { k: "Início", v: "A combinar quando houver proposta." },
+        { k: "Dedicação", v: "Integral. Se for contratado, saio da aFill; a Temp.IA, área de produtos de IA que cofundei lá, segue sem minha operação diária." },
+      ],
+      zone: { k: "Fuso horário", v: "UTC-3. A tarde europeia é a minha manhã." },
+    },
+    page: { role: "Meu papel", period: "Período", stack: "Stack", site: "Site do produto", what: "O que faz", how: "Como funciona", back: "Voltar para o início", more: "Mais projetos" },
   },
 };

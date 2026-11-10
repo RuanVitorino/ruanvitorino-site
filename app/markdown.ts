@@ -1,5 +1,6 @@
-import { copy, type Project } from "./content";
+import { copy, productUrl, type Project } from "./content";
 import { more } from "./more-copy";
+import { splitPath } from "./paths";
 import { person } from "./person";
 
 // Markdown twins of the HTML pages, served from the same URLs to clients that send Accept: text/markdown.
@@ -29,6 +30,10 @@ function home() {
 > ${p.role} in ${p.location}. ${p.relocate}.
 
 ${p.bio.join("\n\n")}
+
+## ${p.seeking.title}
+
+${list([...p.seeking.items, p.seeking.zone].map((i) => `**${i.k}**: ${i.v}`))}
 
 ## ${p.workTitle}
 
@@ -77,13 +82,14 @@ ${p.contactText}
 function project(x: Project) {
   const pg = p.page;
   const [role, period] = x.meta.split(" · ");
+  const site = productUrl[x.id];
   return `# ${x.name}
 
 > ${x.summary}
 
 - ${pg.role}: ${role}
 - ${pg.period}: ${period ?? ""}
-- ${pg.stack}: ${x.stack.join(", ")}
+- ${pg.stack}: ${x.stack.join(", ")}${site ? `\n- ${pg.site}: [${site.replace("https://", "")}](${site})` : ""}
 
 ## ${pg.what}
 
@@ -114,8 +120,10 @@ ${n.sections.map((s) => `## ${s.title}\n\n${list(s.items)}`).join("\n\n")}
 }
 
 // The Markdown for a page path, or null when the path is not a page (the caller answers 404).
+// /es/... and /pt/... are the Spanish and Portuguese HTML pages; their Markdown twin is the English one.
 export function pageMarkdown(pathname: string): string | null {
-  const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  const trimmed = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  const path = splitPath(trimmed).path;
   if (path === "/") return home();
   if (path === "/now") return now();
   const m = /^\/work\/([^/]+)$/.exec(path);

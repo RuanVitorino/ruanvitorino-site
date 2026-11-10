@@ -5,6 +5,7 @@ import askedLog from "./asked.json";
 import { more } from "./more-copy";
 import type { Lang } from "./content";
 import type { Person } from "./person";
+import { localePath } from "./paths";
 
 type Msg = {
   role: "user" | "assistant";
@@ -69,7 +70,7 @@ export default function Agent({
   };
 
   const share = async (i: number, question: string) => {
-    const url = `${location.origin}/?ask=${encodeURIComponent(question)}&lang=${lang}#agent`;
+    const url = `${location.origin}${localePath(lang, "/")}?ask=${encodeURIComponent(question)}#agent`;
     try {
       await navigator.clipboard.writeText(url);
     } catch {}
@@ -163,8 +164,12 @@ export default function Agent({
   useEffect(() => {
     const q = new URLSearchParams(location.search).get("ask");
     if (!q || !open) return;
+    // A shared link only fills the field: the visitor sends it, so a URL alone never spends an API call.
     root.current?.scrollIntoView({ block: "start" });
-    ask(q.slice(0, 400));
+    setDraft(q.slice(0, 400));
+    // Next frame: the page is still hidden while the language resolves, and a hidden field can't take focus.
+    const frame = requestAnimationFrame(() => document.getElementById("agent-q")?.focus({ preventScroll: true }));
+    return () => cancelAnimationFrame(frame);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -270,7 +275,10 @@ export default function Agent({
           </button>
         </form>
       )}
-      <p className="agent-foot">{a.foot}</p>
+      <p className="agent-foot">
+        {a.foot}
+        {open && <> {am.logged}</>}
+      </p>
     </section>
   );
 }

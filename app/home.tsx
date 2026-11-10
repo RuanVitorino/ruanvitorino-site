@@ -1,20 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { copy } from "./content";
+import { copy, extras } from "./content";
 import Agent from "./agent";
 import { person } from "./person";
 import { Controls, usePrefs } from "./prefs";
-import { Status, TransitionLink } from "./bits";
+import { localePath } from "./paths";
+import type { Lang } from "./content";
+import { LocalTime, Status, TransitionLink } from "./bits";
 import { hero } from "./hero-copy";
 import { HeroChat } from "./hero-chat";
 import { ai } from "./ai-copy";
 
+// The screenshot each card shows. Its description comes from the same entry the project page uses.
 const thumbs: Record<string, string> = {
-  smileia: "/shots/smile-hero-800.jpg",
-  appmulti: "/shots/appmulti-insights-800.jpg",
-  protocolos: "/shots/protocolos-ficha-800.jpg",
+  smileia: "/shots/smile-hero.jpg",
+  appmulti: "/shots/appmulti-insights.jpg",
+  protocolos: "/shots/protocolos-ficha.jpg",
 };
+
+const photoAlt = { en: "Photo of Ruan Vitorino", es: "Foto de Ruan Vitorino", pt: "Foto de Ruan Vitorino" } as const;
 
 const live = new Set(["smileia"]);
 
@@ -78,8 +83,8 @@ export function Icon({ name }: { name: keyof typeof paths }) {
 const wayIcons: (keyof typeof paths)[] = ["code", "plug", "user"];
 const current = /hoje|now|hoy/;
 
-export default function Home({ live: agentLive }: { live: boolean }) {
-  const prefs = usePrefs();
+export default function Home({ lang: pageLang, live: agentLive }: { lang: Lang; live: boolean }) {
+  const prefs = usePrefs(pageLang);
   const { lang } = prefs;
   const t = copy[lang];
   const p = person[lang];
@@ -94,7 +99,7 @@ export default function Home({ live: agentLive }: { live: boolean }) {
         <header className="hm-top">
           <div className="hm-me">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/ruan.jpg" alt="" width={40} height={40} />
+            <img src="/ruan.jpg" alt={photoAlt[lang]} width={40} height={40} />
             <div>
               <p className="hm-name">Ruan Vitorino</p>
               <p>
@@ -136,19 +141,39 @@ export default function Home({ live: agentLive }: { live: boolean }) {
           ))}
         </ul>
 
+        <section className="hm-block" id="seeking" aria-labelledby="seek-title">
+          <h2 id="seek-title">{p.seeking.title}</h2>
+          <dl className="hm-rows">
+            {p.seeking.items.map((it) => (
+              <div key={it.k}>
+                <dt>{it.k}</dt>
+                <dd>{it.v}</dd>
+              </div>
+            ))}
+            <div>
+              <dt>{p.seeking.zone.k}</dt>
+              <dd>
+                {p.seeking.zone.v}
+                <LocalTime lang={lang} />
+              </dd>
+            </div>
+          </dl>
+        </section>
+
         <section className="hm-block" id="work" aria-labelledby="work-title">
           <h2 id="work-title">{p.workTitle}</h2>
           <div className="hm-work">
             {featured.map((x, i) => {
               const [role, period] = x.meta.split(" · ");
               const shot = thumbs[x.id];
+              const shotAlt = extras[lang].shots[x.id]?.find((s) => s.src === shot)?.alt ?? "";
               const wide = i === 0 || !shot;
               return (
-                <TransitionLink key={x.id} className={`hm-proj${wide ? " wide" : ""}${shot ? "" : " plain"}`} href={`/work/${x.id}`}>
+                <TransitionLink key={x.id} className={`hm-proj${wide ? " wide" : ""}${shot ? "" : " plain"}`} href={localePath(lang, `/work/${x.id}`)}>
                   {shot && (
                     <div className="hm-shot">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={shot} alt="" loading="lazy" width={800} height={500} />
+                      <img src={shot.replace(".jpg", "-800.jpg")} alt={shotAlt} loading="lazy" width={800} height={500} />
                     </div>
                   )}
                   <div className="hm-proj-body">
@@ -157,13 +182,11 @@ export default function Home({ live: agentLive }: { live: boolean }) {
                       {live.has(x.id) && <Status lang={lang} id={x.id} />}
                     </h3>
                     <p>{x.summary}</p>
-                    {!shot && (
-                      <div className="hm-tags">
-                        {x.stack.slice(0, 4).map((s) => (
-                          <span key={s}>{s}</span>
-                        ))}
-                      </div>
-                    )}
+                    <div className="hm-tags">
+                      {x.stack.slice(0, 4).map((s) => (
+                        <span key={s}>{s}</span>
+                      ))}
+                    </div>
                     <p className="hm-role">
                       <b>{role}</b> · {period}
                     </p>
@@ -187,6 +210,7 @@ export default function Home({ live: agentLive }: { live: boolean }) {
                   <div>
                     <b>{j.role}</b>
                     <span>{j.org}</span>
+                    <p>{j.text}</p>
                   </div>
                   <time>{j.when}</time>
                 </li>
@@ -207,6 +231,18 @@ export default function Home({ live: agentLive }: { live: boolean }) {
             </ol>
             <p className="hm-note">{t.spoken.join(" · ")}</p>
           </div>
+        </section>
+
+        <section className="hm-block" aria-labelledby="stack">
+          <h2 id="stack">{t.nav.stack}</h2>
+          <dl className="hm-rows">
+            {t.stack.map((g) => (
+              <div key={g.group}>
+                <dt>{g.group}</dt>
+                <dd>{g.items.join(", ")}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         <section className="hm-block" aria-labelledby="ai-title">
@@ -238,7 +274,7 @@ export default function Home({ live: agentLive }: { live: boolean }) {
             <ul className="hm-others">
               {others.map((x) => (
                 <li key={x.id}>
-                  <Link href={`/work/${x.id}`}>
+                  <Link href={localePath(lang, `/work/${x.id}`)}>
                     <b>{x.name}</b>
                     <p>{x.summary}</p>
                     <Icon name="arrow" />
@@ -272,7 +308,7 @@ export default function Home({ live: agentLive }: { live: boolean }) {
               <a className="hm-btn hm-secondary" href="https://www.instagram.com/ruanrvitorino/" target="_blank" rel="me noopener">
                 Instagram <Icon name="out" />
               </a>
-              <Link className="hm-btn hm-secondary" href="/now">
+              <Link className="hm-btn hm-secondary" href={localePath(lang, "/now")}>
                 /now
               </Link>
             </div>

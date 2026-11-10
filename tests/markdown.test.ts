@@ -12,6 +12,16 @@ describe("pageMarkdown", () => {
     expect(md).not.toMatch(/<[a-z][^>]*>/i);
   });
 
+  it("states what he is looking for, before the projects", () => {
+    const md = pageMarkdown("/")!;
+    const seek = md.indexOf("## What I'm looking for");
+    expect(seek).toBeGreaterThan(0);
+    expect(seek).toBeLessThan(md.indexOf("## Selected work"));
+    expect(md).toContain("relocating to Spain or Portugal");
+    expect(md).not.toMatch(/visa/i);
+    expect(md).toContain("UTC-3");
+  });
+
   it("renders /now and ignores a trailing slash", () => {
     expect(pageMarkdown("/now")).toMatch(/^# Now\n/);
     expect(pageMarkdown("/now/")).toBe(pageMarkdown("/now"));
@@ -23,6 +33,13 @@ describe("pageMarkdown", () => {
       expect(md.startsWith(`# ${p.name}\n`)).toBe(true);
       expect(md).toContain(p.summary);
     }
+  });
+
+  it("answers the Spanish and Portuguese pages with the English Markdown", () => {
+    expect(pageMarkdown("/pt")).toBe(pageMarkdown("/"));
+    expect(pageMarkdown("/es/now")).toBe(pageMarkdown("/now"));
+    expect(pageMarkdown("/pt/work/smileia/")).toBe(pageMarkdown("/work/smileia"));
+    for (const path of ["/en", "/en/now", "/xx/now", "/pt/foo", "/pt/work/nope"]) expect(pageMarkdown(path), path).toBeNull();
   });
 
   it("returns null for paths that are not pages", () => {
